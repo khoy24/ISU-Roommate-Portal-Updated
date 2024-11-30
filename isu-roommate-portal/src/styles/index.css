@@ -1,0 +1,73 @@
+/* inline CSS overrules external CSS, so need to move it in here if changing anything 
+off media queries that has a conflict in the inline css */
+
+#div-1{
+    padding: 2em 5em;
+}
+
+#div-2{
+    padding: 2em 5em;
+}
+
+.btn-outline-danger {
+    /* !important overrides all other conflicts */
+    border-width: 3px;
+    font-weight: 700;
+    margin-right:.5em;
+}
+
+
+@media only screen and (max-width: 570px) {
+    #carousel-text {
+        font-size: 12px;
+    }
+}
+
+/* created this to align the image centered below the text when reaching a certain point*/
+@media only screen and (max-width: 767.9px) {
+    #camp-img {
+        padding-top: 2em;
+        margin: 0 auto;
+        max-width: 100%; 
+        height: auto; 
+    }
+    #div-1-texts {
+        order: -1; /* Move the text div above the image div */
+        flex-basis: 100%; /* Make the text div full width */
+        text-align: center; /* Center the text */
+    }
+    #welcome-msg {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 1272px) {
+    #div-1{
+        padding-left: 10em;
+        padding-right: 10em;
+    }
+
+    #div-2{
+        padding-left: 7em;
+        padding-right: 10em;
+    }
+
+}
+
+/* text hovers */
+
+.carousel-text:hover {
+    background-color:#f1be488f;
+    color:white;
+    /* font-weight:500; */
+}
+
+
+
+/* cardinal: #C8102E */
+/* burgundy: #7C2529 */
+/* dark gray: #4A4A4A */
+/* light gray:  #F5F5F5 */
+/* medium gray:  #EBEBEB */
+/* midnight:  #003D4C */
+/* gold: #F1BE48 */

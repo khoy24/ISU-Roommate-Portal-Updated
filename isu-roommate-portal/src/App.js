@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState } from "react";
+import Navbar from './Navbar';
+import Homepage from "./Homepage";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    const [dataF,setDataF] = useState({});
+    const [viewer,setViewer] = useState(0);
+
+    return(
+    <div>
+        {/* <Payment dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} /> */}
+
+        {/* {viewer===0 && <Payment dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} />}
+        {viewer === 1 && <Summary dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>} */}
+        {/* <Navbar/> */}
+        <Homepage/>
     </div>
   );
+
 }
 
 export default App;
