@@ -1,0 +1,45 @@
+.prevent-select {
+    user-select: none;
+}
+
+.tooltip {
+position: relative;
+display: inline-block;
+border-bottom: 1px dotted black;
+opacity: 100% !important; 
+}
+
+.tooltip .tooltiptext {
+visibility: hidden;
+width: 470%;
+background-color: lightgray;
+color: black;
+text-align: center;
+border-radius: 6px;
+padding: 5px 0;
+
+/* Position the tooltip */
+/* position: fixed;
+bottom:;
+right: 50%;
+width: 300px; */
+position: absolute;
+bottom: 0;
+right: 0;
+z-index: 1;
+}
+
+.tooltiptext {
+    width: 100%;
+}
+
+.tooltip:hover .tooltiptext {
+visibility: visible;
+}
+
+@media only screen and (max-width: 1350px) {
+    .tooltiptext {
+        max-width: 370%;
+        /* width: 80%; */
+    }
+}

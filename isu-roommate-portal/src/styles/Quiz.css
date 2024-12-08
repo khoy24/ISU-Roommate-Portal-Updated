@@ -1,0 +1,45 @@
+.prevent-select {
+    user-select: none;
+}
+
+/* .column {
+    float: left;
+    width: 45%;
+    padding: 5px;
+} */
+
+/* Clear floats after image containers */
+/* .row::after {
+    content: "";
+    clear: both;
+    display: table;
+} */
+
+.row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 75px;
+}
+
+.column {
+    flex: 45%;
+    padding: 5px;
+}
+
+input[type="radio"] {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    transform: scale(1.125);
+}
+
+.btn-outline-danger {
+    border-width: 3px;
+    font-weight: 700;
+    margin-right:.5em;
+}
+
+@media only screen and (max-width: 800px) {
+    .column {
+        flex: 100%;
+    }
+}

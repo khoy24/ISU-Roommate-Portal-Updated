@@ -1,9 +1,15 @@
 
 import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from "react";
 
 
+function Navbar({dataF, setDataF, viewer, setViewer}) {
 
-function Navbar() {
+    const updateHooks = (number) =>{
+        setViewer(number);
+        setDataF(dataF);
+        // console.log(number)
+    };
 
     return (
         <div>
@@ -19,20 +25,20 @@ function Navbar() {
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
-                                <a class="nav-link" aria-current="Home page" href="./index.html">Home</a>
+                                <button class="nav-link" onClick={() => updateHooks(0)} aria-current="Home page">Home</button>
                             </li>
                             <li class="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
-                                <a class="nav-link" href="./housing.html">Housing</a>
+                                <button class="nav-link" onClick={() => updateHooks(1)} >Housing</button>
                             </li>
                             <li class="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
-                                <a class="nav-link" href="./quiz.html">Quiz</a>
+                                <button class="nav-link" onClick={() => updateHooks(2)}>Quiz</button>
                             </li>
                             <li class="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
-                                <a class="nav-link active" href="./authors.html">Authors</a>
+                                <button class="nav-link active" onClick={() => updateHooks(3)}>Authors</button>
                             </li>
                             <li class="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
-                                <a class="nav-link" id="p-icon" href="./profile.html"><img src="myotherimages/profileIcon.png" style={{height: 20 +'px', marginBottom: .5 +'em', marginRight: .5 +'em'}}></img></a>
-                                <a class="nav-link d-none" id="p-text" href="./profile.html"><span id="profile-text">Profile</span></a>
+                                <button class="nav-link" onClick={() => updateHooks(4)} id="p-icon"><img src="myotherimages/profileIcon.png" style={{height: 20 +'px', marginBottom: .5 +'em', marginRight: .5 +'em'}}></img></button>
+                                <button class="nav-link d-none" onClick={() => updateHooks(4)} id="p-text"><span id="profile-text">Profile</span></button>
                             </li>
                         </ul>
                     </div>
