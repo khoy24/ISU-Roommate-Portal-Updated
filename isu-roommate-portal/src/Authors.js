@@ -18,7 +18,7 @@ export default function Authors({dataF, setDataF, viewer, setViewer}) {
 
                         <div className="p-3 mb-4 bg-body-tertiary rounded-3" style={{ borderRadius: 5+'px', backgroundImage: 'linear-gradient(white, white), linear-gradient(to left, #C8102E, #F1BE48)',
                             backgroundOrigin: 'border-box', backgroundClip: 'content-box, border-box'}}>
-                            <div class="container-fluid py-5 px-5">
+                            <div className="container-fluid py-5 px-5">
                                 <h1 className="display-5 fw-bold">COM S 3190 Construction of User Interfaces, Fall 2024</h1>
                                 <p className="col-md-8 fs-4">Professor: Dr. Abraham Aldaco</p>
                                 <p className="col-md-8 fs-4">Date: 10/20/24</p>

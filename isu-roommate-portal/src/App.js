@@ -7,12 +7,17 @@ import Authors from "./Authors";
 import Quiz from "./Quiz";
 import Login from "./Login";
 import Profile from "./Profile";
-
+import CreateAccount from "./CreateAccount";
 
 function App() {
 
     const [dataF,setDataF] = useState({});
     const [viewer,setViewer] = useState(0);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [bio, setBio] = useState("");
+    const [profilePicture, setProfilePicture] = useState("");
 
     return(
     <div>
@@ -21,8 +26,9 @@ function App() {
         {viewer === 1 && <Housing dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
         {viewer === 2 && <Quiz dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
         {viewer === 3 && <Authors dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 4 && <Login dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 5 && <Profile dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 4 && <Login dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
+        {viewer === 5 && <Profile dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
+        {viewer === 6 && <CreateAccount dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
 
 
     </div>
