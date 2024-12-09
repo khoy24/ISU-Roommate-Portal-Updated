@@ -11,7 +11,7 @@ import CreateAccount from "./CreateAccount";
 
 function App() {
 
-    const [dataF,setDataF] = useState({});
+    const [userData,setUserData] = useState({});
     const [viewer,setViewer] = useState(0);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -22,13 +22,13 @@ function App() {
     return(
     <div>
 
-        {viewer ===0 && <Homepage dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} />}
-        {viewer === 1 && <Housing dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 2 && <Quiz dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 3 && <Authors dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 4 && <Login dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
-        {viewer === 5 && <Profile dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
-        {viewer === 6 && <CreateAccount dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
+        {viewer ===0 && <Homepage userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} />}
+        {viewer === 1 && <Housing userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 2 && <Quiz userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 3 && <Authors userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 4 && <Login userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
+        {viewer === 5 && <Profile userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 6 && <CreateAccount userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
 
 
     </div>

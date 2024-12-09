@@ -3,12 +3,12 @@ import Footer from "./Footer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles/authors.css";
 
-export default function Authors({dataF, setDataF, viewer, setViewer}) {
+export default function Authors({userData, setUserData, viewer, setViewer}) {
 
     return (
         <div>
             <body>
-                <Navbar dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>
+                <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
 
                 <main>
                     <div className="container py-4" >

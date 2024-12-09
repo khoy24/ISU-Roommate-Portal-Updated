@@ -3,11 +3,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import React, { useState } from "react";
 
 
-function Navbar({dataF, setDataF, viewer, setViewer}) {
+function Navbar({userData, setUserData, viewer, setViewer}) {
 
     const updateHooks = (number) =>{
         setViewer(number);
-        setDataF(dataF);
+        setUserData(userData);
         // console.log(number)
     };
 

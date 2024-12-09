@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import "./styles/housing.css";
 import Footer from "./Footer";
 
-export default function Housing({dataF, setDataF, viewer, setViewer}) {
+export default function Housing({userData, setUserData, viewer, setViewer}) {
 
 
 
@@ -11,7 +11,7 @@ export default function Housing({dataF, setDataF, viewer, setViewer}) {
         <body class="housing prevent-select" style={{backgroundColor: '#F5F5F5'}}>
 
     {/* // <!-- navigation bar --> */}
-    <Navbar dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>
+    <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
 
     <header>
         <div class="mx-auto" style={{padding: 20 +'px', margin: 'auto', backgroundColor: '#C8102E', color: '#F5F5F5', overflow: 'hidden', textAlign: 'center', marginBottom: 20+'px'}}>

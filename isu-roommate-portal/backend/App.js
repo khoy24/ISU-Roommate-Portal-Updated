@@ -95,7 +95,7 @@ app.get("/users", (req, res) => {
 });
 
 
-// endpoint to get one user
+// endpoint to get one user by email
 app.get("/user/:email", (req, res) => {
 
     const email = decodeURIComponent(req.params.email);
@@ -118,3 +118,84 @@ app.get("/user/:email", (req, res) => {
         res.status(500).send({ error: "An unexpected error occurred"+err });
     }
  });
+
+
+
+// Request method to read the picture user
+app.get('/contact/profile_picture/:contact_name', (req, res) => { 
+
+    // Read contact_name from route parameter
+    const contact_name = req.params.contact_name;   
+    // MySQL Query
+    const query = "SELECT image_url FROM contact WHERE contact_name = ?";
+    try {
+        db.query(query, [contact_name], (err, result)=>{
+            if (err) {
+            console.log({error:"Error in Profile Picture"});
+            return res.status(500).send({ error: "Error fetching Profile Picture :"+err });
+            } else if (result.length) {
+            console.log(result);
+            res.json({ picture: result[0].image_url }); // return local url
+            } else {
+            res.status(404).send({ error: 'Profile picture not found' });
+            }
+        });
+    } catch (err){
+        console.error("Error fetching profile picture:", err);
+        res.status(500).send({ error: 'Error fetching profile picture :'+ err });
+    }
+
+});
+
+
+// Set up multer for image upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/"); // Save images in the 'uploads' folder
+    },
+        filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+    }
+});
+const upload = multer({ storage: storage });
+// Create "uploads" folder if it doesn't exist
+const fs = require("fs");
+// const multer = require("multer");
+if (!fs.existsSync("uploads")) {
+    fs.mkdirSync("uploads");
+}
+
+// create new user
+app.post("/user", upload.single("image"), (req, res) => {
+ 
+    console.log("Received file:", req.file);
+
+    const { email, user, first_name, last_name, password, bio } = req.body;
+    const profile_photo = req.file ? `/uploads/${req.file.filename}` : null;
+
+    // Step 1: Check if contact_name already exists
+    const checkQuery = "SELECT * FROM users WHERE email = ?";
+    db.query(checkQuery, [email], (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error("Database error during validation:", checkErr);
+            return res.status(500).send({ error: "Error checking contact name: " + checkErr.message });
+        }
+        if (checkResult.length > 0) {
+            // If email exists, send a conflict response
+            return res.status(409).send({ error: "An account with that email already exists." });
+        }
+    });
+
+    const query = "INSERT INTO users (email, user, first_name, last_name, password, bio, profile_photo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    db.query(query, [email, user, first_name, last_name, password, bio, profile_photo], (err, result) => {
+
+        try {
+            res.status(201).send("User added successfully");
+        } catch (err) {
+            // Handle synchronous errors
+            console.error("Error in POST /User:", err);
+            res.status(500).send({ error: "An unexpected error occurred: " + err.message });
+        }
+    });
+
+});

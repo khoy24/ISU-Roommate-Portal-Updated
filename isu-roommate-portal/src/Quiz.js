@@ -2,13 +2,13 @@ import Navbar from "./Navbar";
 import "./styles/Quiz.css";
 import Footer from "./Footer";
 
-export default function Quiz({dataF, setDataF, viewer, setViewer}) {
+export default function Quiz({userData, setUserData, viewer, setViewer}) {
 
     return (
         <div>
 
             <body style={{backgroundColor: '#f5f5f5'}} className="prevent-select">
-                <Navbar dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>
+                <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
 
                 <header>
                     <div className="mx-auto" style={{padding: 20+'px', margin: 'auto', backgroundColor: '#C8102E', color: '#F5F5F5', overflow: 'hidden', textAlign: 'center', marginBottom: 20+'px'}}>

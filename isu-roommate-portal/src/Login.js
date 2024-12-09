@@ -3,7 +3,7 @@ import Footer from "./Footer"
 import './styles/profile.css'
 import { useState } from "react"
 
-export default function Login ({dataF, setDataF, viewer, setViewer, username, setUsername, password, setPassword, email, setEmail}) {
+export default function Login ({userData, setUserData, viewer, setViewer, username, setUsername, password, setPassword, email, setEmail}) {
 
     if (username!=""){
         setViewer(5);
@@ -41,8 +41,9 @@ export default function Login ({dataF, setDataF, viewer, setViewer, username, se
                 }
 
                 const data = await getinfo.json();
-                setDataF(data);
-                console.log(dataF);
+                setUserData(data);
+                console.log(data);
+                console.log(userData);
 
             } catch (err){
                 alert("There was an Error finding the user: "+err);
@@ -71,7 +72,7 @@ export default function Login ({dataF, setDataF, viewer, setViewer, username, se
 
     return (
         <div>
-            <Navbar dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>
+            <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
             {/* <!-- sign in / sign up --> */}
                 <main className="form-signin w-100 m-auto" id="formContainer">
                     <form className="my-5" id="loginForm" onSubmit={handleLogin}>

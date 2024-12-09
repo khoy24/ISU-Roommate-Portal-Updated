@@ -2,13 +2,13 @@ import Navbar from "./Navbar";
 import "./styles/index.css";
 import Footer from "./Footer";
 
-function Homepage({dataF, setDataF, viewer, setViewer}) {
+function Homepage({userData, setUserData, viewer, setViewer}) {
 
 
     return (
         <div>
 
-            <Navbar dataF={dataF} setDataF={setDataF} viewer={viewer} setViewer={setViewer}/>
+            <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
 
             {/* <!-- welcome message --> */}
                 <div className="mx-auto" style={{padding:60 +'px', margin:'auto', backgroundColor: '#C8102E', color:'#F5F5F5', overflow: 'hidden', textAlign:'center', border: 10+'px #F1BE48', borderStyle: 'dashed none'}}>
