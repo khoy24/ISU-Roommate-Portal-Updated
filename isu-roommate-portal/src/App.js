@@ -27,7 +27,7 @@ function App() {
         {viewer === 2 && <Quiz userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
         {viewer === 3 && <Authors userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
         {viewer === 4 && <Login userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
-        {viewer === 5 && <Profile userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 5 && <Profile userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} setEmail={setEmail} setPassword={setPassword}/>}
         {viewer === 6 && <CreateAccount userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
 
 

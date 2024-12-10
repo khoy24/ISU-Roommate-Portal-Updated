@@ -122,30 +122,30 @@ app.get("/user/:email", (req, res) => {
 
 
 // Request method to read the picture user
-app.get('/contact/profile_picture/:contact_name', (req, res) => { 
+// app.get('/contact/profile_picture/:contact_name', (req, res) => { 
 
-    // Read contact_name from route parameter
-    const contact_name = req.params.contact_name;   
-    // MySQL Query
-    const query = "SELECT image_url FROM contact WHERE contact_name = ?";
-    try {
-        db.query(query, [contact_name], (err, result)=>{
-            if (err) {
-            console.log({error:"Error in Profile Picture"});
-            return res.status(500).send({ error: "Error fetching Profile Picture :"+err });
-            } else if (result.length) {
-            console.log(result);
-            res.json({ picture: result[0].image_url }); // return local url
-            } else {
-            res.status(404).send({ error: 'Profile picture not found' });
-            }
-        });
-    } catch (err){
-        console.error("Error fetching profile picture:", err);
-        res.status(500).send({ error: 'Error fetching profile picture :'+ err });
-    }
+//     // Read contact_name from route parameter
+//     const contact_name = req.params.contact_name;   
+//     // MySQL Query
+//     const query = "SELECT image_url FROM contact WHERE contact_name = ?";
+//     try {
+//         db.query(query, [contact_name], (err, result)=>{
+//             if (err) {
+//             console.log({error:"Error in Profile Picture"});
+//             return res.status(500).send({ error: "Error fetching Profile Picture :"+err });
+//             } else if (result.length) {
+//             console.log(result);
+//             res.json({ picture: result[0].image_url }); // return local url
+//             } else {
+//             res.status(404).send({ error: 'Profile picture not found' });
+//             }
+//         });
+//     } catch (err){
+//         console.error("Error fetching profile picture:", err);
+//         res.status(500).send({ error: 'Error fetching profile picture :'+ err });
+//     }
 
-});
+// });
 
 
 // Set up multer for image upload
@@ -197,5 +197,64 @@ app.post("/user", upload.single("image"), (req, res) => {
             res.status(500).send({ error: "An unexpected error occurred: " + err.message });
         }
     });
+
+});
+
+
+// delete a user by email
+app.delete("/user/:id", (req, res) => {
+    const id = req.params.id;
+
+    const query = "DELETE FROM users WHERE id = ?";
+    db.query(query, [id], (err, result) => {
+
+        try {
+            if (result.affectedRows === 0){
+                res.status(404).send({err:"User not found"});
+            } else {
+                res.status(200).send("User deleted successfully");
+            }
+        } catch (err){
+            // Handle synchronous errors
+            console.error("Error in DELETE /user:", err);
+            res.status(500).send({ error: "An unexpected error occurred in DELETE: " + err.message });
+        }
+
+
+    }); 
+
+});
+
+
+
+// change a users profile picture
+// upload.single() had to say profile_photo not image in this case
+app.put("/user/profile_photo/:id",  upload.single("profile_photo"), (req, res) => {
+
+    const id = req.params.id;
+    const profile_photo = req.file ? `/uploads/${req.file.filename}` : null;
+    const query = `
+    UPDATE users
+    SET profile_photo = ?
+    WHERE id = ?
+    `;
+
+    db.query(query, [profile_photo, id], (err, result) => {
+
+        try {
+            if (result.affectedRows === 0) {
+                res.status(404).send({err:"User not found"});
+            } else {
+                res.status(200).send("User updated successfully");
+                console.log(profile_photo);
+                console.log(id);
+            }
+        } catch {
+        // Handle synchronous errors
+        console.error("Error in UPDATE /users :", err);
+        res.status(500).send({ error: "An unexpected error occurred in UPDATE: " + err.message });
+        }
+    })        
+
 
 });

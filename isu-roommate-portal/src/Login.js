@@ -1,13 +1,16 @@
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import './styles/profile.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-export default function Login ({userData, setUserData, viewer, setViewer, username, setUsername, password, setPassword, email, setEmail}) {
+export default function Login ({userData, setUserData, viewer, setViewer, password, setPassword, email, setEmail}) {
 
-    if (username!=""){
-        setViewer(5);
-    }
+    // causes a small delay on the load, could move this to 
+    useEffect(() => {
+            if (Object.keys(userData).length !== 0){
+                setViewer(5);
+            }
+    });
 
     const [error, setError] = useState("");
 
@@ -25,7 +28,7 @@ export default function Login ({userData, setUserData, viewer, setViewer, userna
                 const errorData = await response.json();
                 setError(errorData.error);
                 setEmail("");
-                setUsername("");
+                // setUsername("");
                 setPassword("");
                 return;
             }
@@ -50,14 +53,14 @@ export default function Login ({userData, setUserData, viewer, setViewer, userna
             }
 
             // setUsername(username);
-            console.log(email, password, username);
+            console.log(email, password);
             setViewer(5);
 
         } catch (err){
             console.log("Failed to log in. Please try again."+err);
             setError("Failed to log in. Please try again. " + err);
             setEmail("");
-            setUsername("");
+            // setUsername("");
             setPassword("");
 
         }

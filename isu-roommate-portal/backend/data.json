@@ -1,0 +1,277 @@
+{
+    "Halls": [
+        {
+            "Name": "Barton",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Barton.jpg",
+            "Description": "Barton is part of the Barton-Lyon-Freeman (BLF) community. The building has common space to hang out in and a stocked kitchenette on the first floor. Residents also have access to the Roberts Hall Cyber Lounge. You can relax at Cornerstone Hall Desk and challenge your roommates to a game of pool or ping pong. Access to everything on campus make BLF the ideal residence hall experience for you!"
+        },
+        {
+            "Name": "Birch",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Birch.jpg",
+            "Description": "Birch is part of the Birch-Welch-Roberts (BWR) community and is located in the heart of campus. Whether you’re looking for a study partner, goalie for your intramural soccer team, a mentor, role model or friend, you’ll find it all in BWR. Students here know how to balance fun with academics and they get to do it all in buildings that are close to everything and offer classic collegiate architecture."
+        },
+        {
+            "Name": "Buchanan",
+            "Price": 6854,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Buchanan.jpg",
+            "Description": "Buchanan Hall is a suite-style building. Single suites have two single rooms that share a full bathroom (two people) or two double rooms that share a full bathroom (four people). With large dens and kitchenettes, there is plenty of space to hangout and study. The building also has a large main floor lounge."
+        },
+        {
+            "Name": "Eaton",
+            "Price": 6854,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Eaton.jpg",
+            "Description": "Eaton Hall offers suite-style living where two double rooms are connected by a common bathroom (toilet and shower). Sinks are in each room. A common lounge is on the main level with kitchenettes, dens and study spaces on every floor. Eaton is also substance free. This means that alcohol, tobacco and other drugs are prohibited in this hall regardless of the age of the student. "
+        },
+        {
+            "Name": "Elm",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Elm.jpg",
+            "Description": "Whether you’re looking for a study partner, goalie for your intramural soccer team, a mentor, role model or friend, you’ll find it all in Elm.  Close to everything on campus, including a dining center right in your building, makes Elm the ideal residence hall experience for you!"
+        },
+        {
+            "Name": "Freeman",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Freeman.jpg",
+            "Description": "Freeman is an on-campus residence option that gives students of all genders and gender expressions the opportunity to live together. Gender-Inclusive Housing (GIH) facilities, room assignments, and programming support gender diversity. All students are welcome to live in GIH. Driven by student demand, one of the intentions of GIH is to help students find a truly compatible roommate, so roommate pairs may be of any gender."
+        },
+        {
+            "Name": "Friley",
+            "Price": 5178,
+            "AirConditioned": "Partial",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Friley.jpg",
+            "Description": "There is a lot to love about Friley! You’re sure to meet people, have plenty to keep your social life full and you’ll also find a strong focus on academics. Friley’s location is a major plus in a lot of student’s minds. With State Gym and Beyer Hall offering plenty of recreation options and there’s also our fast-casual burger joint, a Starbucks and two dining centers, including Windows on the first floor, all within minutes of each other."
+        },
+        {
+            "Name": "Geoffroy",
+            "Price": 6854,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Geoffroy.jpg",
+            "Description": "Our newest residence hall, Geoffroy features seven floors of living space. Each floor has two houses – male and female – connected by a ‘front porch.’ This area has floor to ceiling windows looking over campus. The first floor is the hub of activity for Geoffroy. Featuring more than 15 study rooms, a lounge, kitchen, computer lab and a large activity room with projection screen, gaming system, pool table and plenty of soft seating to hang out and relax with your friends."
+        },
+        {
+            "Name": "Helser",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Helser.jpg",
+            "Description": "If you talk to a Helser alum, you’ll learn that this community is a fantastic place to meet people. Located in the heart of the Union Drive neighborhood, Helser is right next door to to State Gym (indoor pool!), two dining centers and a Starbucks. In 2019, rooms in Helser Hall received a complete face lift – all new flooring, lighting, paint and furniture!"
+        },
+        {
+            "Name": "Larch",
+            "Price": 5588,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Larch.jpg",
+            "Description": "Larch is a fantastic open door environment where making friends is easy. You’re close to the Lied Rec Center, Jack Trice, Hilton, Cy Ride stops and we have Seasons Dining in our commons and Conversations just across the street. As a Larch resident, you have access to the rec room, computer labs and all of the other great community and study spaces in the commons plus a large main floor lounge right in Larch."
+        },
+        {
+            "Name": "Linden",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Linden.jpg",
+            "Description": "Linden is a dining plan optional building, which means you don’t need to purchase a meal plan. Our welcoming main floor living area is great for groups to gather and for studying. With spacious rooms and residents who take pride in their community, there’s always something going one! Movies, hall and house events, meeting up with brother/sister floors and of course, studying, are things you’ll find when you make Linden your Cyclone home."
+        },
+        {
+            "Name": "Lyon",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Lyon.jpg",
+            "Description": "Lyon is part of the Barton-Lyon-Freeman (BLF) community. The building has common space to hang out in and residents have access to the Roberts Hall Cyber Lounge and kitchenette. You can relax at Cornerstone Hall Desk and challenge your roommates to a game in the lounge. The diverse students, diverse experiences, classic collegiate architecture and access to everything on campus make BLF the ideal residence hall experience for you!"
+        },
+        {
+            "Name": "Maple",
+            "Price": 5588,
+            "AirConditioned": "yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Maple.jpg",
+            "Description": "With sinks in each room and semi-private bathrooms, Maple offers the perfect combination of community and privacy. Over 500 residents call Maple home and create a welcoming community for everyone. Maple has a large main floor lounge and the Maple-Willow-Larch Commons has Seasons dining, East Side Market, a computer lab, game room and plenty of places to hang out or study. Maple also happens to be a substance free hall!"
+        },
+        {
+            "Name": "Martin",
+            "Price": 6854,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Martin.jpg",
+            "Description": "Martin Hall is a suite-style building. Two rooms (four people) share a common living area, sinks and a toilet/shower room. Common spaces throughout the building offer plenty of space for residents to study, hang out or host events. The students of Martin create a community that’s fun, academic focused and a great place to call your Cyclone home."
+        },
+        {
+            "Name": "Oak",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Oak.jpg",
+            "Description": "Oak features classic college architecture and students dedicated to a successful Cyclone adventure. Conversations Dining is in the lower level and there’s air conditioned lounges, dens and parlors throughout the building – perfect for studying or hanging out with friends! Whether you’re looking for a study partner, goalie for your intramural soccer team, a mentor, role model or friend, you’ll find it all in Oak!"
+        },
+        {
+            "Name": "Roberts",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Roberts.jpg",
+            "Description": "Roberts is part of the Birch-Welch-Roberts (BWR) community and is located in the heart of campus. Whether you’re looking for a study partner, goalie for your intramural soccer team, a mentor, role model or friend, you’ll find it all in BWR. Students here know how to balance fun with academics and they get to do it all in buildings that are close to everything and offer classic collegiate architecture."
+        },
+        {
+            "Name": "Wallace",
+            "Price": 4570,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Wallace.jpg",
+            "Description": "Looking for your own room in a close-knit community of older students? Wallace is for you! Rooms have been recently renovated with new flooring, paint, lighting and windows. Every floor has common space and a kitchenette equipped with an oven, sink and refrigerator. The community has an on-site fitness center, South Side Eats, a lot of community space and plenty of parking! Wallace features the lowest single room rates on campus, starting at $5588."
+        },
+        {
+            "Name": "Welch",
+            "Price": 5178,
+            "AirConditioned": "No",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Welch.jpg",
+            "Description": "Welch is part of the Birch-Welch-Roberts (BWR) community and is located in the heart of campus. Whether you’re looking for a study partner, goalie for your intramural soccer team, a mentor, role model or friend, you’ll find it all in BWR. Students here know how to balance fun with academics and they get to do it all in buildings that are close to everything and offer classic collegiate architecture."
+        },
+        {
+            "Name": "Willow",
+            "Price": 5588,
+            "AirConditioned": "Yes",
+            "OpenDuringWinterBreak": "Yes",
+            "Eligibility": "All",
+            "URL": "./images/Willow.jpg",
+            "Description": "Maple and Larch are our neighbors and we share a three-level commons that has Seasons Dining Center, East Side Market, a game room, hall desk, computer lab and tons of hang out/study space. The main floor of our building has a large lounge and there’s a den on each floor. We’re close to Lied Rec, Hilton and Jack Trice – there’s always something to do!"
+        }
+    ],
+
+    "Questions": [
+        {
+            "Question": "When do you wake up?",
+            "Name": "wakeup",
+            "ID1": "wake6",
+            "Value1": "6:00 AM",
+            "ID2": "wake8",
+            "Value2": "8:00 AM",
+            "ID3": "wake10",
+            "Value3": "10:00 AM",
+            "URL": "./images/wakeup.jpg"
+        },
+        {
+            "Question": "When do you go to sleep?",
+            "Name": "sleep",
+            "ID1": "sleep8",
+            "Value1": "8:00 PM",
+            "ID2": "sleep10",
+            "Value2": "10:00 PM",
+            "ID3": "sleep12",
+            "Value3": "12:00 AM",
+            "URL": "./images/bed.jpg"
+        }, 
+        {
+            "Question": "How do you like to spend your weekends?",
+            "Name": "weekends",
+            "ID1": "weekend1",
+            "Value1": "Going out with friends and exploring the city",
+            "ID2": "weekend2",
+            "Value2": "Staying in, binge-watching shows, and relaxing",
+            "ID3": "weekend3",
+            "Value3": "A balance between social time and downtime",
+            "URL": "./images/weekend.jpg"
+        }, 
+        {
+            "Question": "What's your preferred level of cleanliness in a shared space?",
+            "Name": "cleanliness",
+            "ID1": "clean1",
+            "Value1": "Super clean, everything where it should be",
+            "ID2": "clean2",
+            "Value2": "A bit messy, but nothing too chaotic",
+            "ID3": "clean3",
+            "Value3": "As long as it's manageable, I can live with it",
+            "URL": "./images/clean.jpg"
+        }, 
+        {
+            "Question": "How would you handle disagreements",
+            "Name": "disagreements",
+            "ID1": "disagreements1",
+            "Value1": "Address it immediately and openly",
+            "ID2": "disagreements2",
+            "Value2": "Avoid arguments and hope it resolves itself",
+            "ID3": "disagreements3",
+            "Value3": "Discuss it calmly when the time feels right",
+            "URL": "./images/argue.jpg"
+        }, 
+        {
+            "Question": "How often do you have friends over?",
+            "Name": "friends",
+            "ID1": "friends1",
+            "Value1": "All the time",
+            "ID2": "friends2",
+            "Value2": "Occasionally, but not too often",
+            "ID3": "friends3",
+            "Value3": "It depends on the week and my mood",
+            "URL": "./images/friends.jpg"
+        }, 
+        {
+            "Question": "How would you prefer to share food/supplies?",
+            "Name": "sharing",
+            "ID1": "sharing1",
+            "Value1": "I'd prefer to split everything",
+            "ID2": "sharing2",
+            "Value2": "I prefer to keep everything seperate",
+            "ID3": "sharing3",
+            "Value3": "Only certain items",
+            "URL": "./images/food.jpg"
+        }, 
+        {
+            "Question": "What level of communication should you have with your roommate?",
+            "Name": "communication",
+            "ID1": "communication1",
+            "Value1": "Daily check-ins",
+            "ID2": "communication2",
+            "Value2": "Whenever it happens",
+            "ID3": "communication3",
+            "Value3": "I prefer my solitude",
+            "URL": "./images/communicate.jpg"
+        }, 
+        {
+            "Question": "How much noise is okay while studying",
+            "Name": "studyNoise",
+            "ID1": "studyNoise1",
+            "Value1": "I prefer complete silence",
+            "ID2": "studyNoise2",
+            "Value2": "a little noise is okay, but not too much",
+            "ID3": "studyNoise3",
+            "Value3": "I'm fine with anything",
+            "URL": "./images/study.jpg"
+        }
+    ]
+}
