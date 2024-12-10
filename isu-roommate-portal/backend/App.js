@@ -346,3 +346,99 @@ app.put("/user/caption/:id/:caption_number", upload.none(), (req, res) => {
         }
     })         
 });
+
+
+// get quiz questions
+app.get('/quiz', (req, res) => {
+    try {
+        db.query("SELECT * FROM quiz", (err, result) => {
+            if (err) {
+                console.error({error:"error reading all questions: "+err});
+                return res.status(500).send({error: "error reading all questions"})
+            }
+            res.status(200).send(result);
+        });
+    } catch {
+        console.error({ error: "An unexpected error occurred"+err});
+        res.status(500).send({error: "An unexpected error occurred"+err});
+    }
+});
+
+app.post('/submitQuiz', (req, res) => {
+    const { q1, q2, q3, q4, q5, q6, q7, q8, q9, user_id } = req.body;
+
+    // Perform any necessary database operations
+    const query = `
+        INSERT INTO quizresults (user_id, q1, q2, q3, q4, q5, q6, q7, q8, q9)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.query(query, [user_id, q1, q2, q3, q4, q5, q6, q7, q8, q9], (err, result) => {
+        if (err) {
+            console.error('Error inserting quiz results:', err);
+            return res.status(500).json({ error: 'Error saving quiz results' });
+        }
+        res.status(200).json({ message: 'Quiz saved successfully' });
+    });
+});
+
+//retrieve quiz results for user
+app.get('/quizResult/:user_id', (req, res) => {
+
+    const userID = req.params.user_id;
+
+    // Query to check if the user already has quiz results
+    const query = 'SELECT * FROM quizresults WHERE user_id = ?';
+
+    db.query(query, [userID], (err, result) => {
+        if (err) {
+            console.error('Error checking quiz results:', err);
+            return res.status(500).json({ error: 'Error checking quiz results' });
+        }
+
+        if (result.length > 0) {
+            res.status(200).json(result[0]);
+        } else {
+            res.status(404).json(null);
+        }
+    });
+});
+
+
+
+// PUT method for updating quiz results
+app.put('/quizResult/:user_id', (req, res) => {
+    const { user_id } = req.params;
+    const { q1, q2, q3, q4, q5, q6, q7, q8, q9 } = req.body;
+
+    // Check if the user already has quiz results
+    const checkQuery = 'SELECT * FROM quizresults WHERE user_id = ?';
+    
+    db.query(checkQuery, [user_id], (err, result) => {
+        if (err) {
+            console.error('Error checking existing quiz results:', err);
+            return res.status(500).json({ error: 'Error checking quiz results' });
+        }
+
+        if (result.length === 0) {
+            // If no results exist for the user, return a 404 error
+            return res.status(404).json({ error: 'No quiz results found for the user' });
+        }
+
+        // If results exist, update them
+        const updateQuery = `
+            UPDATE quizresults
+            SET q1 = ?, q2 = ?, q3 = ?, q4 = ?, q5 = ?, q6 = ?, q7 = ?, q8 = ?, q9 = ?
+            WHERE user_id = ?
+        `;
+        
+        db.query(updateQuery, [q1, q2, q3, q4, q5, q6, q7, q8, q9, user_id], (updateErr, updateResult) => {
+            if (updateErr) {
+                console.error('Error updating quiz results:', updateErr);
+                return res.status(500).json({ error: 'Error updating quiz results' });
+            }
+
+            // If update is successful, return a success message
+            res.status(200).json({ message: 'Quiz results updated successfully' });
+        });
+    });
+});

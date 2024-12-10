@@ -1,8 +1,136 @@
 import Navbar from "./Navbar";
 import "./styles/Quiz.css";
 import Footer from "./Footer";
+import React, { useState, useEffect } from "react";
 
 export default function Quiz({userData, setUserData, viewer, setViewer}) {
+
+    const [quizData, setQuizData] = useState([]);
+    const [quizAnswers, setQuizAnswers] = useState({});
+
+    useEffect(() => {
+        fetch("http://localhost:8081/quiz")
+        .then((response) => response.json())
+        .then((data) => {
+            setQuizData(data);
+        })
+        .catch((error) => {
+            console.error("Error fetching quiz data: ", error);
+        });
+    }, []);
+
+    const handleInputChange = (e) => {
+        const {name, value } = e.target;
+        setQuizAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [name]: value,
+        }));
+    };
+
+
+
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+        
+    //     console.log("Form submitted");
+    //     console.log(quizAnswers);
+    //     // console.log(userData[0].id);
+    //     if (!userData || !userData[0].id) {
+    //         console.error("Please log in.");
+    //         return;
+    //     }
+    
+    //     // Prepare data to send to the server
+    //     const submissionData = {
+    //         user_id: userData[0].id,  // Assuming userData contains the user info
+    //         ...quizAnswers,        // Spread the quiz answers (e.g., { q1: 'Yes', q2: 'No', ... })
+    //     };
+    //     console.log("Submission Data:", submissionData);
+    //     // Send data to the server (POST request)
+    //     fetch("http://localhost:8081/submitQuiz", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(submissionData),
+    //     })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //         // Handle successful submission (e.g., show a success message)
+    //         console.log("Quiz submitted successfully:", data);
+    //     })
+    //     .catch((error) => {
+    //         // Handle error
+    //         console.error("Error submitting quiz:", error);
+    //     });
+    // };
+
+    const handleSubmit = async () => {
+        try {
+            const transformedKeys = Object.keys(quizAnswers).reduce((acc, key) => {
+                const newKey = 'q' + key.replace('question', '');
+                acc[newKey] = quizAnswers[key];
+                return acc;
+            }, {});
+    
+            const submissionData = {
+                user_id: userData[0].id,
+                ...transformedKeys,
+            };
+    
+            console.log("Submission Data:", submissionData);
+    
+            // First, check if quiz results exist
+            const checkResponse = await fetch(`http://localhost:8081/quizResult/${userData[0].id}`);
+    
+            if (!checkResponse.ok) {
+                // If quiz results do not exist (404), create new quiz results
+                const errorText = await checkResponse.text();
+                if (checkResponse.status === 404) {
+                    alert("No previous quiz results found. Creating new results.");
+                    // Call POST method to submit the quiz if no results exist
+                    const response = await fetch("http://localhost:8081/submitQuiz", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(submissionData),
+                    });
+    
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        alert("Error submitting quiz results: " + errorText);
+                    } else {
+                        const successMessage = await response.json();
+                        alert(successMessage.message);
+                    }
+                }
+            } else {
+                // If quiz results exist (200), update them with PUT method
+                const response = await fetch(`http://localhost:8081/quizResult/${userData[0].id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(submissionData),
+                });
+    
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    alert("Error updating quiz results: " + errorText);
+                } else {
+                    const successMessage = await response.json();
+                    alert(successMessage.message);
+                }
+            }
+        } catch (err) {
+            alert("An error occurred: " + err);
+        }
+    };
+    
+    
+
 
     return (
         <div>
@@ -17,11 +145,91 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                 </header>
 
                 <div className="container" style={{marginBottom: 20+'px'}}>
-                    <form id="QuizBody">
-                        
+                    {/* This is for using a dropdown option */}
+                {/* <form id="QuizBody" onSubmit={handleSubmit}>
+            {quizData.length > 0 ? (
+              quizData.map((question) => (
+                <div key={question.id} style={{ marginBottom: "15px" }}>
+                  <label htmlFor={`question${question.id}`} style={{ fontWeight: "bold" }}>
+                    {question.question}
+                  </label>
+                  <br />
+                  <select
+                    name={`question${question.id}_1`}
+                    id={`question${question.id}_1`}
+                    value={quizAnswers[`question${question.id}_1`] || question.Value1}
+                    onChange={handleInputChange}
+                  >
+                    <option value={question.Value1}>{question.Value1}</option>
+                    {question.Value2 && <option value={question.Value2}>{question.Value2}</option>}
+                    {question.Value3 && <option value={question.Value3}>{question.Value3}</option>}
+                  </select>
+                </div>
+              ))
+            ) : (
+              <p>Loading quiz...</p>
+            )}
+          </form> */}
+
+                    {/* This is for using radio buttons */}
+                    <form id="QuizBody" onSubmit={handleSubmit}>
+                        {quizData.length > 0 ? (
+                        quizData.map((q) => (
+                            <div key={q.id} style={{ marginBottom: "15px" }}>
+                            <label htmlFor={`question${q.id}`} style={{ fontWeight: "bold" }}>
+                                {q.question}
+                            </label>
+                            <br />
+                            {/* Radio buttons for Value1, Value2, and Value3 */}
+                            <div>
+                                <input
+                                type="radio"
+                                name={`question${q.id}`}
+                                value={q.Value1}
+                                id={`question${q.id}_1`}
+                                checked={quizAnswers[`question${q.id}`] === q.Value1}
+                                onChange={handleInputChange}
+                                />
+                                <label htmlFor={`question${q.id}_1`} style={{marginLeft: "10px"}}>{q.Value1}</label>
+                            </div>
+
+                            {q.Value2 && (
+                                <div>
+                                <input
+                                    type="radio"
+                                    name={`question${q.id}`}
+                                    value={q.Value2}
+                                    id={`question${q.id}_2`}
+                                    checked={quizAnswers[`question${q.id}`] === q.Value2}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor={`question${q.id}_2`} style={{marginLeft: "10px"}}>{q.Value2}</label>
+                                </div>
+                            )}
+
+                            {q.Value3 && (
+                                <div>
+                                <input
+                                    type="radio"
+                                    name={`question${q.id}`}
+                                    value={q.Value3}
+                                    id={`question${q.id}_3`}
+                                    checked={quizAnswers[`question${q.id}`] === q.Value3}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor={`question${q.id}_3`} style={{marginLeft: "10px"}}>{q.Value3}</label>
+                                </div>
+                            )}
+                            </div>
+                        ))
+                        ) : (
+                        <p>Loading quiz...</p>
+                        )}
                     </form>
 
-                    <a href="./index.html"><button type="button" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 30+'px'}}>Submit Quiz</button></a>
+                    {/* <a href="./index.html"> */}
+                    <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 30+'px'}} onClick={handleSubmit}>Submit Quiz</button>
+                    {/* </a> */}
                     
                     <p className="my-3" style={{fontSize: 15+'px'}}>In the future, all values will be saved, and will be able to be edited at a later date</p>
                 </div>
