@@ -258,3 +258,35 @@ app.put("/user/profile_photo/:id",  upload.single("profile_photo"), (req, res) =
 
 
 });
+
+// change a users gallery photos
+app.put("/user/gallery_image/:id/:gallery_number",  upload.single(`gallery_image`), (req, res) => {
+
+    const id = req.params.id;
+    const gallery_number = req.params.gallery_number;
+    const gallery_image = req.file ? `/uploads/${req.file.filename}` : null;
+    const query = `
+    UPDATE users
+    SET gallery${gallery_number} = ?
+    WHERE id = ?
+    `;
+
+    console.log(gallery_image);
+
+    db.query(query, [gallery_image, id], (err, result) => {
+
+        try {
+            if (result.affectedRows === 0) {
+                res.status(404).send({err:"User not found"});
+            } else {
+                res.status(200).send("User updated successfully");
+            }
+        } catch (err) {
+        // Handle synchronous errors
+        console.error("Error in UPDATE /users :", err);
+        res.status(500).send({ error: "An unexpected error occurred in UPDATE: " + err.message });
+        }
+    })         
+
+
+});

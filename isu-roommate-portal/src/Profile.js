@@ -74,6 +74,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                     throw new Error("Failed to fetch user");
                 }
                 const data = await getinfo.json();
+                console.log(data);
                 setUserData(data);
                 // setViewer(5);
             } catch (err){
@@ -81,6 +82,47 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
             }
     };
 
+
+    //gallery photo edits
+    
+    // change profile picture
+    const updateGallery = async (id, gallery_number) => {
+        try {
+            const formData = new FormData();
+            console.log(image);
+            formData.append(`gallery_image`, image);
+            formData.append("gallery_number", gallery_number);
+            formData.append("id", id);
+            const response = await fetch(`http://localhost:8081/user/gallery_image/${id}/${gallery_number}`, {
+                method: "PUT",
+                body: formData,
+            });
+            if (!response.ok) {
+                throw new Error("Failed to update gallery");
+            }
+                alert("Gallery updated successfully");
+                setImage(null);
+                // setPreview(null);
+            } catch (err) {
+                alert("There was an error updating the gallery: " + err);
+            }
+
+            // retrieve the user in image in userData?
+            try {
+                const getinfo = await fetch(`http://localhost:8081/user/${encodeURIComponent(userData[0].email)}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", }
+                });
+                if (!getinfo.ok) {
+                    throw new Error("Failed to fetch user");
+                }
+                const data = await getinfo.json();
+                setUserData(data);
+                // setViewer(5);
+            } catch (err){
+                alert("There was an Error finding the user: "+err);
+            }
+    };
 
 
     // implement being able to upload images to gallery and profile, and change bio text (put methods)
@@ -151,11 +193,11 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                         />
                                         <div class="input-group mb-3 my-4">
                                             <input type="file" className="form-control" onChange={handleImageChange} />
-                                            <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                            <button type="button" onClick={()=>updateGallery(userData[0].id, 1)} className="btn btn-outline-secondary">Upload</button>
                                         </div>
                                         </div>
                                         
-                                    ) && (<button type="button" className="btn btn-outline-secondary">Secondary</button>)}
+                                    )}
                                     {!userData[0].gallery1 && ( <div>
                                         <img className="img-fluid"
                                         src={"./images/noPhoto.jpg"}
@@ -165,7 +207,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                         /> 
                                         <div class="input-group mb-3 my-4">
                                             <input type="file" className="form-control" onChange={handleImageChange} />
-                                            <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                            <button type="button" onClick={()=>updateGallery(userData[0].id, 1)} className="btn btn-outline-secondary">Upload</button>
                                         </div>
                                         </div>
                                     )}
@@ -184,7 +226,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                         />
                                         <div class="input-group mb-3 my-4">
                                             <input type="file" className="form-control" onChange={handleImageChange} />
-                                            <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                            <button type="button" onClick={()=>updateGallery(userData[0].id, 2)} className="btn btn-outline-secondary">Upload</button>
                                         </div>
                                         </div>
                                     )}
@@ -198,7 +240,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                             />
                                             <div class="input-group mb-3 my-4">
                                                 <input type="file" className="form-control" onChange={handleImageChange} />
-                                                <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                                <button type="button" onClick={()=>updateGallery(userData[0].id, 2)} className="btn btn-outline-secondary">Upload</button>
                                             </div>
                                         </div>
                                     )}
@@ -217,7 +259,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                         />
                                         <div class="input-group mb-3 my-4">
                                             <input type="file" className="form-control" onChange={handleImageChange} />
-                                            <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                            <button type="button" onClick={()=>updateGallery(userData[0].id, 3)} className="btn btn-outline-secondary">Upload</button>
                                         </div>
                                         </div>
                                     )}
@@ -231,7 +273,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                             />
                                             <div class="input-group mb-3 my-4">
                                                 <input type="file" className="form-control" onChange={handleImageChange} />
-                                                <button type="button" onClick={()=>updateProfilePic(userData[0].id)} className="btn btn-outline-secondary">Upload</button>
+                                                <button type="button" onClick={()=>updateGallery(userData[0].id, 3)} className="btn btn-outline-secondary">Upload</button>
                                             </div>
                                         </div>
                                     )}
