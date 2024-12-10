@@ -8,6 +8,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
     const [quizData, setQuizData] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({});
     const [similarUsers, setSimilarUsers] = useState([]);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:8081/quiz")
@@ -111,6 +112,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                     } else {
                         const successMessage = await response.json();
                         alert(successMessage.message);
+                        findSimilarUsers(submissionData.user_id);
                     }
                 }
             } else {
@@ -133,6 +135,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                     findSimilarUsers(submissionData.user_id);
                 }
             }
+            setFormSubmitted(true);
         } catch (err) {
             alert("An error occurred: " + err);
         }
@@ -265,10 +268,15 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                     </form>
 
                     {/* <a href="./index.html"> */}
-                    <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 30+'px'}} onClick={handleSubmit}>Submit Quiz</button>
+                    <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 15+'px'}} onClick={handleSubmit}>Submit Quiz</button>
                     {/* </a> */}
                     
-                    <p className="my-3" style={{fontSize: 15+'px'}}>In the future, all values will be saved, and will be able to be edited at a later date</p>
+                    {formSubmitted && (
+                        <h3 className="my-3" style={{ paddingTop: '50px' }}>
+                            Top Matches
+                        </h3>
+                    )}
+                    
                     {similarUsers.length > 0 && (
                         <div className="row mt-4">
                             {similarUsers.map((user) => (

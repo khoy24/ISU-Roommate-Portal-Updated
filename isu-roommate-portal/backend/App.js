@@ -205,25 +205,32 @@ app.post("/user", upload.single("image"), (req, res) => {
 app.delete("/user/:id", (req, res) => {
     const id = req.params.id;
 
-    const query = "DELETE FROM users WHERE id = ?";
-    db.query(query, [id], (err, result) => {
-
-        try {
-            if (result.affectedRows === 0){
-                res.status(404).send({err:"User not found"});
-            } else {
-                res.status(200).send("User deleted successfully");
-            }
-        } catch (err){
-            // Handle synchronous errors
-            console.error("Error in DELETE /user:", err);
-            res.status(500).send({ error: "An unexpected error occurred in DELETE: " + err.message });
+    // First, delete quiz results for the user
+    const quizQuery = "DELETE FROM quizresults WHERE user_id = ?";
+    db.query(quizQuery, [id], (err, result) => {
+        if (err) {
+            console.error("Error deleting quiz results: ", err);
+            return res.status(500).send({error: "An unexpected error occurred while deleting quiz results"});
         }
 
-
-    }); 
-
+        // If quiz results are deleted successfully, then proceed to delete the user
+        const query = "DELETE FROM users WHERE id = ?";
+        db.query(query, [id], (err, result) => {
+            try {
+                if (result.affectedRows === 0) {
+                    res.status(404).send({err: "User not found"});
+                } else {
+                    res.status(200).send("User deleted successfully");
+                }
+            } catch (err) {
+                // Handle synchronous errors
+                console.error("Error in DELETE /user:", err);
+                res.status(500).send({ error: "An unexpected error occurred in DELETE: " + err.message });
+            }
+        });
+    });
 });
+
 
 
 
