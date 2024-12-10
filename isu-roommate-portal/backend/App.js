@@ -246,8 +246,8 @@ app.put("/user/profile_photo/:id",  upload.single("profile_photo"), (req, res) =
                 res.status(404).send({err:"User not found"});
             } else {
                 res.status(200).send("User updated successfully");
-                console.log(profile_photo);
-                console.log(id);
+                // console.log(profile_photo);
+                // console.log(id);
             }
         } catch {
         // Handle synchronous errors
@@ -270,10 +270,39 @@ app.put("/user/gallery_image/:id/:gallery_number",  upload.single(`gallery_image
     SET gallery${gallery_number} = ?
     WHERE id = ?
     `;
-
-    console.log(gallery_image);
-
     db.query(query, [gallery_image, id], (err, result) => {
+
+        try {
+            if (result.affectedRows === 0) {
+                res.status(404).send({err:"User not found"});
+            } else {
+                res.status(200).send("User updated successfully");
+            }
+        } catch (err) {
+        // Handle synchronous errors
+        console.error("Error in UPDATE /users :", err);
+        res.status(500).send({ error: "An unexpected error occurred in UPDATE: " + err.message });
+        }
+    })         
+});
+
+
+// change a user's bio
+// needed to add the upload.none() to pass in multer to allow for bio to be brought in from the formdata. No images needed so .none()
+app.put("/user/bio/:id", upload.none(), (req, res) => {
+
+    const id = req.params.id;
+    const { bio } = req.body;
+
+    const query = `
+    UPDATE users
+    SET bio = ?
+    WHERE id = ?
+    `;
+
+    // console.log(gallery_image);
+
+    db.query(query, [bio, id], (err, result) => {
 
         try {
             if (result.affectedRows === 0) {
@@ -289,4 +318,31 @@ app.put("/user/gallery_image/:id/:gallery_number",  upload.single(`gallery_image
     })         
 
 
+});
+
+// change a users gallery captions
+app.put("/user/caption/:id/:caption_number", upload.none(), (req, res) => {
+
+    const id = req.params.id;
+    const {caption} = req.body;
+    const caption_number = req.params.caption_number;
+    const query = `
+    UPDATE users
+    SET caption${caption_number} = ?
+    WHERE id = ?
+    `;
+    db.query(query, [caption, id], (err, result) => {
+
+        try {
+            if (result.affectedRows === 0) {
+                res.status(404).send({err:"User not found"});
+            } else {
+                res.status(200).send("User updated successfully");
+            }
+        } catch (err) {
+            // Handle synchronous errors
+            console.error("Error in UPDATE /users :", err);
+            res.status(500).send({ error: "An unexpected error occurred in UPDATE: " + err.message });
+        }
+    })         
 });
