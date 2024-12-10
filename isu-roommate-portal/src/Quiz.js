@@ -7,6 +7,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
 
     const [quizData, setQuizData] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({});
+    const [similarUsers, setSimilarUsers] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:8081/quiz")
@@ -68,6 +69,12 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
 
     const handleSubmit = async () => {
         try {
+
+            if (!userData || !userData[0]?.id) {
+                alert("You must sign in before submitting the quiz");
+                return;
+            }
+
             const transformedKeys = Object.keys(quizAnswers).reduce((acc, key) => {
                 const newKey = 'q' + key.replace('question', '');
                 acc[newKey] = quizAnswers[key];
@@ -122,12 +129,42 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                 } else {
                     const successMessage = await response.json();
                     alert(successMessage.message);
+
+                    findSimilarUsers(submissionData.user_id);
                 }
             }
         } catch (err) {
             alert("An error occurred: " + err);
         }
     };
+
+
+    const findSimilarUsers = async () => {
+        const userID = userData[0].id;
+        const response = await fetch(`http://localhost:8081/findSimilarUsers/${userID}`);
+    
+        if (response.ok) {
+            const similarUsers = await response.json();
+            setSimilarUsers(similarUsers);  // Store the similar users in the state
+            console.log("Similar users:", similarUsers);
+            
+            // Optionally, log the user details
+            similarUsers.forEach(user => {
+                console.log(`User ID: ${user.user_id}`);
+                console.log(`Email: ${user.email}`);
+                console.log(`First Name: ${user.first_name}`);
+                console.log(`Last Name: ${user.last_name}`);
+                console.log(`Score: ${user.score}`);
+            });
+        } else {
+            alert("Error getting other users");
+        }
+    };
+    
+    
+    
+    
+    
     
     
 
@@ -232,6 +269,21 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                     {/* </a> */}
                     
                     <p className="my-3" style={{fontSize: 15+'px'}}>In the future, all values will be saved, and will be able to be edited at a later date</p>
+                    {similarUsers.length > 0 && (
+                        <div className="row mt-4">
+                            {similarUsers.map((user) => (
+                                <div className="col-md-4" key={user.user_id}>
+                                    <div className="card" style={{ marginBottom: '20px' }}>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{user.first_name} {user.last_name}</h5>
+                                            <p className="card-text">Email: {user.email}</p>
+                                            <p className="card-text">Score: {user.score}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <Footer/>
