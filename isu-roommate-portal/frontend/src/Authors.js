@@ -21,7 +21,7 @@ export default function Authors({userData, setUserData, viewer, setViewer}) {
                             <div className="container-fluid py-5 px-5">
                                 <h1 className="display-5 fw-bold">COM S 3190 Construction of User Interfaces, Fall 2024</h1>
                                 <p className="col-md-8 fs-4">Professor: Dr. Abraham Aldaco</p>
-                                <p className="col-md-8 fs-4">Date: 10/20/24</p>
+                                <p className="col-md-8 fs-4">Date: 12/11/24</p>
                             </div>
                         </div>
 
