@@ -576,3 +576,19 @@ app.get('/findSimilarUsers/:user_id', (req, res) => {
     });
 });
 
+
+//get all housing options
+app.get('/housing', (req, res) => {
+    try {
+        db.query("SELECT * FROM housing", (err, result) => {
+            if (err) {
+                console.error({error:"error getting all housing: "+err});
+                return res.status(500).send({error: "error getting all housing"})
+            }
+            res.status(200).send(result);
+        });
+    } catch {
+        console.error({ error: "An unexpected error occurred"+err});
+        res.status(500).send({error: "An unexpected error occurred"+err});
+    }
+});
