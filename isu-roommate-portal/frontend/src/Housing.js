@@ -10,6 +10,7 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
   const [houseQuery, setHouseQuery] = useState("");
   const [begunSearch, setBegunSearch] = useState(0);
   const[searchedHouses, setSearchedHouses] = useState([]);
+  const [houseAdded, setHouseAdded] = useState(0);
 
   if (houseQuery==="" && begunSearch===1){
     setBegunSearch(0);
@@ -23,9 +24,48 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
   };
 
   const handleAddToSelection = (housing) => {
-    setSelectedHouses((prevSelected) => [...prevSelected, housing]);
+    // setSelectedHouses((prevSelected) => [...prevSelected, housing]);
     console.log("House added to selection:", housing);
+    addPreference(housing);
+      // setHouseAdded(0);
   };
+
+  
+const addPreference = async (housing) => {
+  try {
+    // Create a FormData object to hold the fields and the file
+    const formData = new FormData();
+    console.log(userData[0].id)
+    formData.append("userId", userData[0].id);
+    formData.append("housingId", housing.id);
+
+    // Send the FormData object to the backend
+    const response = await fetch("http://localhost:8081/user/housing_preference", {
+      method: "POST",
+      body: formData, // No need to set Content-Type; fetch will handle it
+    });
+    if (!response.ok) {
+        // Handle errors (status code 4xx or 5xx)
+        const errorData = await response.json(); // Parse JSON error response
+        alert("Error: " + errorData.error);
+    } else {
+        // Status code 201 indicates success
+        const successMessage = await response.text(); // Handle plain text response
+        alert(successMessage);
+        // setUserData();
+        // setViewer(5);
+    }
+  } catch (err) {
+    alert("An error occurred :"+err)
+  }
+};
+
+  // if (houseAdded===1){
+
+  //   // add function (post) to the table
+  //   addPreference(housing);
+  //   setHouseAdded(0);
+  // }
 
   useEffect(() => {
     fetch("http://localhost:8081/housing")
@@ -65,6 +105,8 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
         alert("There was an Error loading one user "+err);
     }
 };
+
+
   
 
   return (
@@ -109,6 +151,8 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
                             </button>
 
                             {/* Button to add housing to selections */}
+                            {/* only display if signed in */}
+                            {userData[0]?.id &&
                             <button
                               className="btn btn-primary select-btn"
                               onClick={() => handleAddToSelection(housing)}
@@ -125,6 +169,7 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
                             >
                               Add to Selection
                             </button>
+                            }
                           </div>
                           {/* Expandable Description */}
                           <div

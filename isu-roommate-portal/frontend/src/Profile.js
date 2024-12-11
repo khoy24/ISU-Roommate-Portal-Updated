@@ -329,6 +329,14 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                         <input className="my-3 form-control" type="text" class="form-control"  onChange={(e) => setCaption(e.target.value)} id="createCaption3" placeholder="Edit Caption" aria-label="Submit new caption"/>
                                         <button className="btn btn-outline-secondary" type="button" onClick={()=>updateCaption(userData[0].id, 3)} >Submit</button>
                                     </div>
+                                    
+                                </div>
+                                <div>
+                                    <h2 className="fw-normal my-3">Housing Preferences</h2>
+                                    {/* {userData[0].gallery3 && (
+                                        <div>
+                                        </div>
+                                    )} */}
                                 </div>
                             </div>
                         </div>

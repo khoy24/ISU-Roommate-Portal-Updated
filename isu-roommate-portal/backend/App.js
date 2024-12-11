@@ -640,3 +640,40 @@ app.get("/house/:houseName", (req, res) => {
     });
 
 });
+
+
+app.post("/user/housing_preference", upload.none(), (req, res) => {
+
+    const {userId, housingId} = req.body;
+    console.log(userId);
+
+    // Step 1: Check if the preference already exists
+    const checkQuery = "SELECT * FROM houseSelections WHERE user_id = ? AND housing_id = ?";
+    db.query(checkQuery, [userId, housingId], (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error("Database error during validation:", checkErr);
+            return res.status(500).send({ error: "Error checking contact name: " + checkErr.message });
+        }
+         if (checkResult.length > 0) {
+            // If email exists, send a conflict response
+            return res.status(409).send({ error: "That housing preference already exists." });
+        } else {
+            // add the preference if it doesn't exist
+            const query = "INSERT INTO houseSelections (user_id, housing_id) VALUES (?, ?)";
+            db.query(query, [userId, housingId], (err, result) => {
+        
+                try {
+                    return res.status(201).send("Preference added successfully");
+                } catch (err) {
+                    // Handle synchronous errors
+                    console.error("Error in POST /housing_preference:", err);
+                    return res.status(500).send({ error: "An unexpected error occurred: " + err.message });
+                }
+            });
+        }
+    });
+
+
+    
+});
+

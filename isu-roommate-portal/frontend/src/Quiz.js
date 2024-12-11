@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import "./styles/Quiz.css";
 import Footer from "./Footer";
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Quiz({userData, setUserData, viewer, setViewer, setOtherUserData}) {
 
@@ -10,6 +11,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
     const [quizAnswers, setQuizAnswers] = useState({});
     const [similarUsers, setSimilarUsers] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const { register, formState: { errors } } = useForm();
 
     useEffect(() => {
         fetch("http://localhost:8081/quiz")
@@ -249,6 +251,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                             <div>
                                 <input
                                 type="radio"
+
                                 name={`question${q.id}`}
                                 value={q.Value1}
                                 id={`question${q.id}_1`}
