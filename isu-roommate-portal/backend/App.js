@@ -601,7 +601,6 @@ app.get("/house/:houseName", (req, res) => {
     db.query(query, [searchValue], (err, result) => {
         try {
             res.status(200).send(result);
-            console.log(result);
         } catch (err) {
             console.error({ error: "An unexpected error occurred in GET by name"+err });
             res.status(500).send({ error: "An unexpected error occurred in GET by name"+err });
