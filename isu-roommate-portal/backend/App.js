@@ -167,6 +167,23 @@ if (!fs.existsSync("uploads")) {
     fs.mkdirSync("uploads");
 }
 
+// Set up multer for images 
+const storage1 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "images/"); // Save images in the 'uploads' folder
+    },
+        filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+    }
+});
+const upload1 = multer({ storage: storage1 });
+// Create "uploads" folder if it doesn't exist
+const fs1 = require("fs");
+// const multer = require("multer");
+if (!fs1.existsSync("images")) {
+    fs1.mkdirSync("images");
+}
+
 
 // create new user
 app.post("/user", upload.single("image"), (req, res) => {
