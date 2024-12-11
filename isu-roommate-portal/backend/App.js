@@ -399,6 +399,7 @@ app.get('/quiz', (req, res) => {
     }
 });
 
+// submit quiz
 app.post('/submitQuiz', (req, res) => {
     const { q1, q2, q3, q4, q5, q6, q7, q8, q9, user_id } = req.body;
 
@@ -541,7 +542,7 @@ app.get('/findSimilarUsers/:user_id', (req, res) => {
             const userIds = results.map(result => result.user_id);
             if (userIds.length > 0) {
                 const userDetailsQuery = `
-                    SELECT id, email, first_name, last_name
+                    SELECT *
                     FROM users
                     WHERE id IN (${userIds.join(",")});
                 `;
@@ -556,6 +557,8 @@ app.get('/findSimilarUsers/:user_id', (req, res) => {
                     // Combine the similarity score with the user details
                     const resultWithUserDetails = results.map((result) => {
                         const userDetail = userDetails.find(user => user.id === result.user_id);
+                        // i want userDetail, it has everything needed for the other user page
+                        console.log(userDetail);
                         return {
                             user_id: result.user_id,
                             score: result.score,
@@ -591,4 +594,30 @@ app.get('/housing', (req, res) => {
         console.error({ error: "An unexpected error occurred"+err});
         res.status(500).send({error: "An unexpected error occurred"+err});
     }
+});
+
+
+// get house searching by house name
+app.get("/house/:houseName", (req, res) => { 
+    // console.log("called")
+    const houseName = decodeURIComponent(req.params.houseName);
+    // console.log(userName);
+    // Validate if contact_name is provided
+    if (!houseName) {
+        return res.status(400).send({ error: "House name is required" });
+    } 
+
+    // Query to search for exact or partial matches, case sensitive
+    const query = "SELECT * FROM housing WHERE LOWER(name) LIKE LOWER(?)";
+    const searchValue = `%${houseName}%`; // Add wildcards for partial match
+    db.query(query, [searchValue], (err, result) => {
+        try {
+            res.status(200).send(result);
+            console.log(result);
+        } catch (err) {
+            console.error({ error: "An unexpected error occurred in GET by name"+err });
+            res.status(500).send({ error: "An unexpected error occurred in GET by name"+err });
+        }
+    });
+
 });

@@ -3,8 +3,9 @@ import "./styles/Quiz.css";
 import Footer from "./Footer";
 import React, { useState, useEffect } from "react";
 
-export default function Quiz({userData, setUserData, viewer, setViewer}) {
+export default function Quiz({userData, setUserData, viewer, setViewer, setOtherUserData}) {
 
+    // const [signedIn, setSignedIn] = useState(0); // 0  = not signed in 
     const [quizData, setQuizData] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({});
     const [similarUsers, setSimilarUsers] = useState([]);
@@ -153,18 +154,37 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
             
             // Optionally, log the user details
             similarUsers.forEach(user => {
+                setOtherUserData(user.userDetail);
                 console.log(`User ID: ${user.user_id}`);
                 console.log(`Email: ${user.email}`);
                 console.log(`First Name: ${user.first_name}`);
                 console.log(`Last Name: ${user.last_name}`);
                 console.log(`Score: ${user.score}`);
+                console.log(user);
             });
         } else {
             alert("Error getting other users");
         }
     };
     
-    
+     // updates the page with the user's info. Called each time it changes. 
+     const updatePage = async (email) => {
+        try {
+            const getinfo = await fetch(`http://localhost:8081/user/${encodeURIComponent(email)}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json", }
+            });
+            if (!getinfo.ok) {
+                throw new Error("Failed to fetch user");
+            }
+            const data = await getinfo.json();
+            setOtherUserData(data[0]);
+            console.log(data);
+            setViewer(8);
+        } catch (err){
+            alert("There was an Error finding the user: "+err);
+        }
+    }
     
     
     
@@ -212,8 +232,13 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
           </form> */}
 
                     {/* This is for using radio buttons */}
-                    <form id="QuizBody" onSubmit={handleSubmit}>
-                        {quizData.length > 0 ? (
+                    <form id="QuizBody" className=" w-100 m-auto justify-content-center" onSubmit={handleSubmit}>
+                        {!userData[0]?.id &&
+                            <div className="justify-content-center text-align-center">
+                                <h1 className="my-5" style={{textAlign:'center'}}>Sign in before taking the quiz</h1>
+                            </div>
+                        }
+                        {userData[0]?.id && quizData.length > 0 ? (
                         quizData.map((q) => (
                             <div key={q.id} style={{ marginBottom: "15px" }}>
                             <label htmlFor={`question${q.id}`} style={{ fontWeight: "bold" }}>
@@ -263,12 +288,19 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                             </div>
                         ))
                         ) : (
-                        <p>Loading quiz...</p>
+                        // <p>Loading quiz...</p>
+                        <p></p>
                         )}
                     </form>
 
                     {/* <a href="./index.html"> */}
-                    <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 15+'px'}} onClick={handleSubmit}>Submit Quiz</button>
+                    {userData[0]?.id && <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 15+'px'}} onClick={handleSubmit}>Submit Quiz</button>
+                    }
+                    {!userData[0]?.id && 
+                        <div className="d-flex justify-content-center">
+                            <button  id="submitBtn" className="btn btn-outline-danger py-2 gy-2 my-2 " style={{marginTop: 15+'px'}} onClick={(e)=>setViewer(4)}>To Login</button>
+                        </div>
+                    }
                     {/* </a> */}
                     
                     {formSubmitted && (
@@ -286,8 +318,10 @@ export default function Quiz({userData, setUserData, viewer, setViewer}) {
                                             <h5 className="card-title">{user.first_name} {user.last_name}</h5>
                                             <p className="card-text">Email: {user.email}</p>
                                             <p className="card-text">Score: {user.score}</p>
+                                            <button className="btn btn-danger" onClick={(e)=>{updatePage(user.email)}}>View User's Profile</button>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             ))}
                         </div>

@@ -25,7 +25,7 @@ function App() {
 
         {viewer ===0 && <Homepage userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} />}
         {viewer === 1 && <Housing userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
-        {viewer === 2 && <Quiz userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
+        {viewer === 2 && <Quiz userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} setOtherUserData={setOtherUserData}/>}
         {viewer === 3 && <Authors userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>}
         {viewer === 4 && <Login userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>}
         {viewer === 5 && <Profile userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer} setEmail={setEmail} setPassword={setPassword}/>}

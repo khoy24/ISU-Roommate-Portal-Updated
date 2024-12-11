@@ -62,12 +62,7 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
 
     const viewUserProfile = async (otherUserData) => {
         setOtherUserData(otherUserData);
-        // setEmail(otherUserData.email);
-        // console.log(otherUserData.email);
-        
         setViewer(8);
-        // setOtherUserData(otherUserData);
-
     }
 
     return (
@@ -79,7 +74,7 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
                         <input type="text" className="form-control" placeholder="Enter username" value={userName}
                         onChange={(e) => setUserName(e.target.value.toLowerCase())}
                         />
-                        <button className="btn btn-primary" onClick={fetchUsers}>
+                        <button className="btn btn-primary btn-danger" onClick={fetchUsers}>
                         Search
                         </button>
                     </div>
@@ -99,7 +94,7 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
                                 <p>{user.first_name} {user.last_name}</p>
                             </div>
                             <div class="gap-2 d-md-flex justify-content-center">
-                                <button onClick={(e)=> viewUserProfile(user)} class="btn btn-primary me-md-2 align-self-end"  type="button">View Profile</button>
+                                <button onClick={(e)=> viewUserProfile(user)} class="btn btn-primary me-md-2 align-self-end btn-danger"  type="button">View Profile</button>
                             </div>
                         </div>
                     </li>   
@@ -120,7 +115,7 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
                                 <p>{user.first_name} {user.last_name}</p>
                             </div>
                             <div class="gap-2 d-md-flex justify-content-center">
-                                <button onClick={(e)=>viewUserProfile(user)} class="btn btn-primary me-md-2 align-self-end"  type="button">View Profile</button>
+                                <button onClick={(e)=>viewUserProfile(user)} class="btn btn-primary me-md-2 align-self-end  btn-danger"  type="button">View Profile</button>
                             </div>
                         </div>
                     </li>   

@@ -36,7 +36,7 @@ export default function OtherProfile({userData, setUserData, viewer, setViewer, 
                         <p className="my-2">{otherUserData.first_name} {otherUserData.last_name}</p>
                         <div className="d-flex flex-column my-4 ">
                             <div>
-                            <button className="btn btn-outline-light px-4" type="button" style={{backgroundColor:'#7C2529'}}><a href="mailto: ${email}" style={{color:'white', textDecoration:'none'}}>Contact Me</a></button>
+                            <button className="btn btn-outline-light px-4" type="button" style={{backgroundColor:'#7C2529'}}><a href={`mailto:${otherUserData.email}`} style={{color:'white', textDecoration:'none'}}>Contact Me</a></button>
                             </div>
                         </div>
                     </div>
