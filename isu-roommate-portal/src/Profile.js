@@ -193,9 +193,9 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                         <h1 className="fw-normal my-3">{userData[0].user}</h1>
                         <p className="my-2">{userData[0].first_name} {userData[0].last_name}</p>
                         <div className="d-flex flex-column my-4 ">
-                            <div>
+                            {/* <div>
                             <button className="btn btn-outline-light px-4" type="button" style={{backgroundColor:'#7C2529'}}><a href="mailto: ${email}" style={{color:'white', textDecoration:'none'}}>Contact Me</a></button>
-                            </div>
+                            </div> */}
                             <div>
                             <button className="btn btn-outline-light px-4 my-2"  onClick={handleLogout} type="button" style={{backgroundColor:'#7C2529'}}>Logout</button>
                             </div>

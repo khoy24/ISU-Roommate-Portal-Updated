@@ -52,6 +52,9 @@ function Navbar({userData, setUserData, viewer, setViewer}) {
                                 <button className={`nav-link ${viewer === 0 ? 'active' : ''}`} onClick={() => updateHooks(0)} aria-current="Home page">Home</button>
                             </li>
                             <li className="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
+                                <button className={`nav-link ${viewer === 7 ? 'active' : ''}`} onClick={() => updateHooks(7)} aria-current="Home page">Find a Roommate</button>
+                            </li>
+                            <li className="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>
                                 <button className={`nav-link ${viewer === 1 ? 'active' : ''}`} onClick={() => updateHooks(1)} >Housing</button>
                             </li>
                             <li className="nav-item" style={{display: 'flex', justifyContent: 'flex-end', marginTop:.5 + 'em', marginRight:1 + 'em'}}>

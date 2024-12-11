@@ -95,6 +95,7 @@ app.get("/users", (req, res) => {
 });
 
 
+
 // endpoint to get one user by email
 app.get("/user/:email", (req, res) => {
 
@@ -345,4 +346,30 @@ app.put("/user/caption/:id/:caption_number", upload.none(), (req, res) => {
             res.status(500).send({ error: "An unexpected error occurred in UPDATE: " + err.message });
         }
     })         
+});
+
+
+// get users searching by username
+// can't have just user/:username because endpoint too similar to the email
+app.get("/user/username/:userName", (req, res) => { 
+    // console.log("called")
+    const userName = decodeURIComponent(req.params.userName);
+    // console.log(userName);
+    // Validate if contact_name is provided
+    if (!userName) {
+        return res.status(400).send({ error: "userName is required" });
+    } 
+
+    // Query to search for exact or partial matches, case sensitive
+    const query = "SELECT * FROM users WHERE LOWER(user) LIKE LOWER(?)";
+    const searchValue = `%${userName}%`; // Add wildcards for partial match
+    db.query(query, [searchValue], (err, result) => {
+        try {
+            res.status(200).send(result);
+        } catch (err) {
+            console.error({ error: "An unexpected error occurred in GET by name"+err });
+            res.status(500).send({ error: "An unexpected error occurred in GET by name"+err });
+        }
+    });
+
 });
