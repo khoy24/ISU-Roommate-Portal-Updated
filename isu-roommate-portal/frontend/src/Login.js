@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 
 export default function Login ({userData, setUserData, viewer, setViewer, password, setPassword, email, setEmail}) {
 
-    // causes a small delay on the load, could move this to 
+    // if user tries to login and they are already logged in they are sent to their own profile page
     useEffect(() => {
             if (Object.keys(userData).length !== 0){
                 setViewer(5);
@@ -28,7 +28,6 @@ export default function Login ({userData, setUserData, viewer, setViewer, passwo
                 const errorData = await response.json();
                 setError(errorData.error);
                 setEmail("");
-                // setUsername("");
                 setPassword("");
                 return;
             }
@@ -45,19 +44,13 @@ export default function Login ({userData, setUserData, viewer, setViewer, passwo
 
                 const data = await getinfo.json();
                 setUserData(data);
-                console.log(data);
-                console.log(userData);
 
             } catch (err){
                 alert("There was an Error finding the user: "+err);
             }
-
-            // setUsername(username);
-            console.log(email, password);
             setViewer(5);
 
         } catch (err){
-            console.log("Failed to log in. Please try again."+err);
             setError("Failed to log in. Please try again. " + err);
             setEmail("");
             // setUsername("");
@@ -66,12 +59,6 @@ export default function Login ({userData, setUserData, viewer, setViewer, passwo
         }
 
     };
-
-    // const updateHooks = (username) =>{
-    //     // setViewer(number);
-    //     setUsername(username);
-    //     // console.log(number)
-    // };
 
     return (
         <div>
@@ -89,21 +76,12 @@ export default function Login ({userData, setUserData, viewer, setViewer, passwo
                             <input type="password" onChange={(e) => setPassword(e.target.value)} className="form-control" id="passwordInput" placeholder="Password" required />
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
-                    
-                        {/* <!-- not implement the remember me yet --> */}
-                        {/* <div class="form-check text-start my-3">
-                            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault"/>
-                            <label class="form-check-label" for="flexCheckDefault">
-                            Remember me
-                            </label>
-                        </div> */}
+                
 
                         <button className="btn btn-primary w-100 py-2" type="submit" id="loginButton" style={{backgroundColor:'#7C2529'}}>Sign in</button>
                         <button class="btn btn-primary w-100 py-2 gy-2 my-2 " onClick={() => setViewer(6)} style={{backgroundColor:'#7C2529'}}>Create Account</button>
-                        {/* <p className="mt-5 mb-3 text-body-secondary">(for grading purposes) login with:<br/> e: khoyme@iastate.edu p: password <br/> or e: moseleyc@iastate.edu p: password <br/> or e: bbb@iastate.edu p: bbrules</p> */}
                     </form>
                     <div id="loginuser"></div>
-                    {/* </div> */}
                 </main>
 
             <Footer />

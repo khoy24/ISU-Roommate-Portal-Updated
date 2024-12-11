@@ -35,15 +35,12 @@ function Homepage({userData, setUserData, viewer, setViewer}) {
                 <div className="mx-auto" style={{padding:60 +'px', margin:'auto', backgroundColor: '#C8102E', color:'#F5F5F5', overflow: 'hidden', textAlign:'center', border: 10+'px #F1BE48', borderStyle: 'dashed none'}}>
                     <h1 id="welcome-msg" className="mx-auto" style={{fontFamily: 'Merriweather serif', fontSize: 50 +'px'}}>Welcome to the Iowa State University Roommate Portal!</h1>
                 </div>
-
-                {/* <!-- div 1 --> */}
                 <div className="container-fluid" id="div-1" style={{backgroundColor: '#F5F5F5', position: 'relative'}}> 
                     <div className="row mx-0 gx-3 justify-content-center">
                         <div className="col-12 col-md-6 my-auto" id="div-1-texts">
                             <p className="mb-1"><strong>Iowa State University Roommate Portal</strong></p>
                             <h1 style={{color:'#C8102E'}}>Find The Perfect Roommate!</h1>
                             <p className="mb-3">Create an account today to find your ideal roommate at Iowa State.<br/>Or, if you are an existing user, log in.</p>
-                            {/* <!-- we will implement this second button in our final --> */}
                             <button type="button" className="btn btn-outline-danger" id="toSignupButton" onClick={() => setViewer(6)}>Sign Up</button>
                             <button type="button" className="btn btn-outline-danger" id="toLoginButton"  onClick={() => setViewer(4)}>login</button>
                         </div>
@@ -53,7 +50,6 @@ function Homepage({userData, setUserData, viewer, setViewer}) {
                     </div>
                 </div>
 
-                {/* <!-- div 2 --> */}
                 <div className="container-fluid" id="div-2" style={{backgroundColor: 'white', position: 'relative'}}> 
                     <div className="row mx-0 gx-4 justify-content-center">
                         <div className="col-12 col-md-6 my-auto" id="camp-img" style={{textAlign: 'center'}}>
@@ -112,9 +108,7 @@ function Homepage({userData, setUserData, viewer, setViewer}) {
                     </div>
                 </div>
                 
-                
 
-            {/* <!-- footer --> */}
             <Footer/>
         </div>
     );

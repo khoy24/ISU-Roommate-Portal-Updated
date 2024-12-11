@@ -3,8 +3,6 @@ import Footer from "./Footer";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// import 
-
 export default function CreateAccount({userData, setUserData, viewer, setViewer, username, setUsername, password, setPassword, email, setEmail}) {
 
     const [image, setImage] = useState(null);
@@ -42,7 +40,7 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
         // Send the FormData object to the backend
         const response = await fetch("http://localhost:8081/user", {
         method: "POST",
-        body: formData, // No need to set Content-Type; fetch will handle it
+        body: formData, 
         });
         if (!response.ok) {
             // Handle errors (status code 4xx or 5xx)
@@ -52,8 +50,6 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
             // Status code 201 indicates success
             const successMessage = await response.text(); // Handle plain text response
             alert(successMessage);
-            // setUserData();
-            // setViewer(5);
         }
         } catch (err) {
         alert("An error occurred :"+err)
@@ -89,8 +85,7 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
             setBio(null);
             setFirstName(null);
             setLastName(null);
-            
-            // setViewer(5);
+
         } catch (err){
 
         }
@@ -134,15 +129,10 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
                         <input type="file" className="form-control" onChange={handleImageChange} />
                         {preview && (<img src={preview} alt="Preview" className="mt-3" style={{position: 'relative', width: 15+'em', height: 15+'em', borderRadius: 50+'%', overflow:'hidden', objectFit: 'cover'}} /> )}
                     </div>
-                    {/* <button type="submit" class="btn btn-primary">Submit</button> */}
-                    {/* </form> */}
                         <button className="btn btn-primary w-100 py-2 gy-2 my-2 " type="submit" style={{backgroundColor:'#7C2529'}}>Create Account</button>
                         <p className="my-3">Already have an account?</p>
                         <button className="btn btn-primary w-100 py-2" onClick={() => setViewer(4)} id="loginButton" style={{backgroundColor:'#7C2529'}}>Back to sign in</button>
-                        {/* <p className="mt-5 mb-3 text-body-secondary">(for grading purposes) login with:<br/> e: khoyme@iastate.edu p: password <br/> or e: moseleyc@iastate.edu p: password <br/> or e: bbb@iastate.edu p: bbrules</p> */}
-                    </form>
-                    <div id="loginuser"></div>
-                    {/* </div> */}
+                 </form>
                 </main>
 
             <Footer />

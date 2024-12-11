@@ -1,5 +1,3 @@
-/* inline CSS overrules external CSS, so need to move it in here if changing anything 
-off media queries that has a conflict in the inline css */
 
 #div-1{
     padding: 2em 5em;

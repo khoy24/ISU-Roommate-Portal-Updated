@@ -23,23 +23,18 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
             }
             const data = await response.json();
             setUsers(data);
-            // console.log(data);
         } catch (err) {
             alert("There was an Error loading one user "+err);
         }
-
     }
+
     if (begunSearch===0){
         fetchAllUsers();
         setBegunSearch(1);
     }
-    // fetchAllUsers();
-
 
     const fetchUsers = async () => {
         setBegunSearch(2)
-        // console.log("fetch");
-        // console.log(userName);
         if (!userName.trim()) {
             alert("Please enter a user's username");
             return;
@@ -54,7 +49,6 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
             }
             const data = await response.json();
             setUserQuery(data);
-            // console.log(data);
         } catch (err) {
             alert("There was an Error loading one user "+err);
         }

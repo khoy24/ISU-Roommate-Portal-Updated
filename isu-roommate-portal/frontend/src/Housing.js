@@ -4,13 +4,12 @@ import Footer from "./Footer";
 import React, { useState, useEffect } from "react";
 
 export default function Housing({ userData, setUserData, viewer, setViewer }) {
+
   const [housingData, setHousingData] = useState([]);
   const [expanded, setExpanded] = useState({});
-  const [selectedHouses, setSelectedHouses] = useState([]);  // State for selected houses
   const [houseQuery, setHouseQuery] = useState("");
   const [begunSearch, setBegunSearch] = useState(0);
   const[searchedHouses, setSearchedHouses] = useState([]);
-  const [houseAdded, setHouseAdded] = useState(0);
 
   if (houseQuery==="" && begunSearch===1){
     setBegunSearch(0);
@@ -24,10 +23,7 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
   };
 
   const handleAddToSelection = (housing) => {
-    // setSelectedHouses((prevSelected) => [...prevSelected, housing]);
-    console.log("House added to selection:", housing);
     addPreference(housing);
-      // setHouseAdded(0);
   };
 
   
@@ -35,43 +31,31 @@ const addPreference = async (housing) => {
   try {
     // Create a FormData object to hold the fields and the file
     const formData = new FormData();
-    console.log(userData[0].id)
     formData.append("userId", userData[0].id);
     formData.append("housingId", housing.id);
 
     // Send the FormData object to the backend
     const response = await fetch("http://localhost:8081/user/housing_preference", {
       method: "POST",
-      body: formData, // No need to set Content-Type; fetch will handle it
+      body: formData, 
     });
     if (!response.ok) {
-        // Handle errors (status code 4xx or 5xx)
-        const errorData = await response.json(); // Parse JSON error response
+        const errorData = await response.json(); 
         alert("Error: " + errorData.error);
     } else {
-        // Status code 201 indicates success
-        const successMessage = await response.text(); // Handle plain text response
+        const successMessage = await response.text(); 
         alert(successMessage);
-        // setUserData();
-        // setViewer(5);
     }
   } catch (err) {
     alert("An error occurred :"+err)
   }
 };
 
-  // if (houseAdded===1){
-
-  //   // add function (post) to the table
-  //   addPreference(housing);
-  //   setHouseAdded(0);
-  // }
 
   useEffect(() => {
     fetch("http://localhost:8081/housing")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setHousingData(data);
       })
       .catch((error) => {
@@ -83,7 +67,6 @@ const addPreference = async (housing) => {
   // get houses for the search bar
   const fetchHouses = async () => {
     setBegunSearch(1);
-    console.log(houseQuery);
     if (!houseQuery.trim()) {
         alert("Please enter a house name");
         return;
@@ -98,9 +81,6 @@ const addPreference = async (housing) => {
         }
         const data = await response.json();
         setSearchedHouses(data);
-        console.log(data);
-        console.log(searchedHouses);
-        // console.log(data);
     } catch (err) {
         alert("There was an Error loading one user "+err);
     }
@@ -265,17 +245,6 @@ const addPreference = async (housing) => {
             color: #007bff;
             text-decoration: underline;
             cursor: pointer;
-          }
-
-          .select-btn {
-            border-radius: 5px;
-            padding: 6px 14px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            font-size: 12px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
           }
 
           .select-btn:hover {

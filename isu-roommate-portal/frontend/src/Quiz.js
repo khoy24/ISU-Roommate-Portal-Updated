@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 
 export default function Quiz({userData, setUserData, viewer, setViewer, setOtherUserData}) {
 
-    // const [signedIn, setSignedIn] = useState(0); // 0  = not signed in 
     const [quizData, setQuizData] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({});
     const [similarUsers, setSimilarUsers] = useState([]);
@@ -32,45 +31,6 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
         }));
     };
 
-
-
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-        
-    //     console.log("Form submitted");
-    //     console.log(quizAnswers);
-    //     // console.log(userData[0].id);
-    //     if (!userData || !userData[0].id) {
-    //         console.error("Please log in.");
-    //         return;
-    //     }
-    
-    //     // Prepare data to send to the server
-    //     const submissionData = {
-    //         user_id: userData[0].id,  // Assuming userData contains the user info
-    //         ...quizAnswers,        // Spread the quiz answers (e.g., { q1: 'Yes', q2: 'No', ... })
-    //     };
-    //     console.log("Submission Data:", submissionData);
-    //     // Send data to the server (POST request)
-    //     fetch("http://localhost:8081/submitQuiz", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(submissionData),
-    //     })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //         // Handle successful submission (e.g., show a success message)
-    //         console.log("Quiz submitted successfully:", data);
-    //     })
-    //     .catch((error) => {
-    //         // Handle error
-    //         console.error("Error submitting quiz:", error);
-    //     });
-    // };
-
     const handleSubmit = async () => {
         try {
 
@@ -90,7 +50,6 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                 ...transformedKeys,
             };
     
-            console.log("Submission Data:", submissionData);
     
             // First, check if quiz results exist
             const checkResponse = await fetch(`http://localhost:8081/quizResult/${userData[0].id}`);
@@ -152,17 +111,10 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
         if (response.ok) {
             const similarUsers = await response.json();
             setSimilarUsers(similarUsers);  // Store the similar users in the state
-            console.log("Similar users:", similarUsers);
             
             // Optionally, log the user details
             similarUsers.forEach(user => {
                 setOtherUserData(user.userDetail);
-                console.log(`User ID: ${user.user_id}`);
-                console.log(`Email: ${user.email}`);
-                console.log(`First Name: ${user.first_name}`);
-                console.log(`Last Name: ${user.last_name}`);
-                console.log(`Score: ${user.score}`);
-                console.log(user);
             });
         } else {
             alert("Error getting other users");
@@ -181,7 +133,6 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
             }
             const data = await getinfo.json();
             setOtherUserData(data[0]);
-            console.log(data);
             setViewer(8);
         } catch (err){
             alert("There was an Error finding the user: "+err);
@@ -207,31 +158,6 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                 </header>
 
                 <div className="container" style={{marginBottom: 20+'px'}}>
-                    {/* This is for using a dropdown option */}
-                {/* <form id="QuizBody" onSubmit={handleSubmit}>
-            {quizData.length > 0 ? (
-              quizData.map((question) => (
-                <div key={question.id} style={{ marginBottom: "15px" }}>
-                  <label htmlFor={`question${question.id}`} style={{ fontWeight: "bold" }}>
-                    {question.question}
-                  </label>
-                  <br />
-                  <select
-                    name={`question${question.id}_1`}
-                    id={`question${question.id}_1`}
-                    value={quizAnswers[`question${question.id}_1`] || question.Value1}
-                    onChange={handleInputChange}
-                  >
-                    <option value={question.Value1}>{question.Value1}</option>
-                    {question.Value2 && <option value={question.Value2}>{question.Value2}</option>}
-                    {question.Value3 && <option value={question.Value3}>{question.Value3}</option>}
-                  </select>
-                </div>
-              ))
-            ) : (
-              <p>Loading quiz...</p>
-            )}
-          </form> */}
 
                     {/* This is for using radio buttons */}
                     <form id="QuizBody" className=" w-100 m-auto justify-content-center" onSubmit={handleSubmit}>
@@ -291,12 +217,10 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                             </div>
                         ))
                         ) : (
-                        // <p>Loading quiz...</p>
                         <p></p>
                         )}
                     </form>
 
-                    {/* <a href="./index.html"> */}
                     {userData[0]?.id && <button type="submit" id="submitBtn" className="btn btn-outline-danger" style={{marginTop: 15+'px'}} onClick={handleSubmit}>Submit Quiz</button>
                     }
                     {!userData[0]?.id && 
@@ -304,7 +228,6 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                             <button  id="submitBtn" className="btn btn-outline-danger py-2 gy-2 my-2 " style={{marginTop: 15+'px'}} onClick={(e)=>setViewer(4)}>To Login</button>
                         </div>
                     }
-                    {/* </a> */}
                     
                     {formSubmitted && (
                         <h3 className="my-3" style={{ paddingTop: '50px' }}>

@@ -2,8 +2,6 @@
 var express = require("express");
 var cors = require("cors");
 const multer = require("multer");
-// var multer = require("multer");
-// var fs = require("fs");
 var bodyParser = require("body-parser");
 const path = require('path');
 var app = express();
@@ -56,9 +54,6 @@ app.post("/users/login", (req, res) => {
             // If there is not any error, respond with code and role
             const { user } = results;
             res.status(200).send({ user });
-            // console.log(res[0], res[2], res[1])
-            // console.log(email, password);
-            // console.log(results);
         } catch (err){
             // Handle synchronous errors
             console.error("Error in GET /users/login", err);
@@ -76,25 +71,15 @@ app.get("/users", (req, res) => {
     db.query("SELECT * FROM users", (err, result) => {
         if (err) {
         console.error({error:"Error reading all posts:"+err});
-        return res.status(500).send({ error: "Error reading all contacts"+err});
+        return res.status(500).send({ error: "Error reading all users"+err});
         }
         res.status(200).send(result);
-        // console.log(result);
     });
     } catch {
         console.error({ error: "An unexpected error occurred"+err });
         res.status(500).send({ error: "An unexpected error occurred"+err });
     }
  });
-
- db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        return;
-    }
-    console.log('Connected to the database!');
-});
-
 
 
 // endpoint to get one user by email
@@ -110,44 +95,15 @@ app.get("/user/:email", (req, res) => {
         db.query("SELECT * FROM users WHERE email=?", [email], (err, result) => {
             if (err) {
             console.error({error:"Error reading all posts:"+err});
-            return res.status(500).send({ error: "Error reading all contacts"+err});
+            return res.status(500).send({ error: "Error reading user"+err});
             }
             res.status(200).send(result);
-            // console.log(result);
         });
     } catch {
         console.error({ error: "An unexpected error occurred"+err });
         res.status(500).send({ error: "An unexpected error occurred"+err });
     }
  });
-
-
-
-// Request method to read the picture user
-// app.get('/contact/profile_picture/:contact_name', (req, res) => { 
-
-//     // Read contact_name from route parameter
-//     const contact_name = req.params.contact_name;   
-//     // MySQL Query
-//     const query = "SELECT image_url FROM contact WHERE contact_name = ?";
-//     try {
-//         db.query(query, [contact_name], (err, result)=>{
-//             if (err) {
-//             console.log({error:"Error in Profile Picture"});
-//             return res.status(500).send({ error: "Error fetching Profile Picture :"+err });
-//             } else if (result.length) {
-//             console.log(result);
-//             res.json({ picture: result[0].image_url }); // return local url
-//             } else {
-//             res.status(404).send({ error: 'Profile picture not found' });
-//             }
-//         });
-//     } catch (err){
-//         console.error("Error fetching profile picture:", err);
-//         res.status(500).send({ error: 'Error fetching profile picture :'+ err });
-//     }
-
-// });
 
 
 // Set up multer for image upload
@@ -170,16 +126,15 @@ if (!fs.existsSync("uploads")) {
 // Set up multer for images 
 const storage1 = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "images/"); // Save images in the 'uploads' folder
+        cb(null, "images/"); // Save images in the 'images' folder
     },
         filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
     }
 });
 const upload1 = multer({ storage: storage1 });
-// Create "uploads" folder if it doesn't exist
+// Create "images" folder if it doesn't exist
 const fs1 = require("fs");
-// const multer = require("multer");
 if (!fs1.existsSync("images")) {
     fs1.mkdirSync("images");
 }
@@ -187,21 +142,18 @@ if (!fs1.existsSync("images")) {
 
 // create new user
 app.post("/user", upload.single("image"), (req, res) => {
- 
-    console.log("Received file:", req.file);
 
     const { email, user, first_name, last_name, password, bio } = req.body;
     const profile_photo = req.file ? `/uploads/${req.file.filename}` : null;
 
-    // Step 1: Check if contact_name already exists
+    // Check if user already exists
     const checkQuery = "SELECT * FROM users WHERE email = ?";
     db.query(checkQuery, [email], (checkErr, checkResult) => {
         if (checkErr) {
             console.error("Database error during validation:", checkErr);
-            return res.status(500).send({ error: "Error checking contact name: " + checkErr.message });
+            return res.status(500).send({ error: "Error checking user: " + checkErr.message });
         }
         if (checkResult.length > 0) {
-            // If email exists, send a conflict response
             return res.status(409).send({ error: "An account with that email already exists." });
         }
     });
@@ -220,6 +172,21 @@ app.post("/user", upload.single("image"), (req, res) => {
 
 });
 
+// remove a housing selection
+app.delete("/user/:id/:houseId", (req, res) => {
+const id = req.params.id;
+const houseId = req.params.houseId;
+
+const houseQuery = "DELETE FROM houseSelections WHERE user_id = ? AND housing_id = ?";
+db.query(houseQuery, [id, houseId], (err, result) => {
+    if (err) {
+        console.error("Error deleting housingSelection results: ", err);
+        return res.status(500).send({error: "An unexpected error occurred while deleting housingSelection results"});
+    } else {
+        res.status(200).send("Housing Preference removed successfully");
+    }
+    })
+});
 
 // delete a user by email
 app.delete("/user/:id", (req, res) => {
@@ -233,20 +200,31 @@ app.delete("/user/:id", (req, res) => {
             return res.status(500).send({error: "An unexpected error occurred while deleting quiz results"});
         }
 
-        // If quiz results are deleted successfully, then proceed to delete the user
-        const query = "DELETE FROM users WHERE id = ?";
-        db.query(query, [id], (err, result) => {
-            try {
-                if (result.affectedRows === 0) {
-                    res.status(404).send({err: "User not found"});
-                } else {
-                    res.status(200).send("User deleted successfully");
-                }
-            } catch (err) {
-                // Handle synchronous errors
-                console.error("Error in DELETE /user:", err);
-                res.status(500).send({ error: "An unexpected error occurred in DELETE: " + err.message });
+        // delete from housingSelection
+        const houseQuery = "DELETE FROM houseSelections WHERE user_id = ?";
+        db.query(houseQuery, [id], (err, result) => {
+            if (err) {
+                console.error("Error deleting housingSelection results: ", err);
+                return res.status(500).send({error: "An unexpected error occurred while deleting housingSelection results"});
             }
+
+
+            // If quiz results are deleted successfully, then proceed to delete the user
+            const query = "DELETE FROM users WHERE id = ?";
+            db.query(query, [id], (err, result) => {
+                try {
+                    if (result.affectedRows === 0) {
+                        res.status(404).send({err: "User not found"});
+                    } else {
+                        res.status(200).send("User deleted successfully");
+                    }
+                } catch (err) {
+                    // Handle synchronous errors
+                    console.error("Error in DELETE /user:", err);
+                    res.status(500).send({ error: "An unexpected error occurred in DELETE: " + err.message });
+                }
+            
+            });
         });
     });
 });
@@ -273,8 +251,6 @@ app.put("/user/profile_photo/:id",  upload.single("profile_photo"), (req, res) =
                 res.status(404).send({err:"User not found"});
             } else {
                 res.status(200).send("User updated successfully");
-                // console.log(profile_photo);
-                // console.log(id);
             }
         } catch {
         // Handle synchronous errors
@@ -327,8 +303,6 @@ app.put("/user/bio/:id", upload.none(), (req, res) => {
     WHERE id = ?
     `;
 
-    // console.log(gallery_image);
-
     db.query(query, [bio, id], (err, result) => {
 
         try {
@@ -378,10 +352,9 @@ app.put("/user/caption/:id/:caption_number", upload.none(), (req, res) => {
 // get users searching by username
 // can't have just user/:username because endpoint too similar to the email
 app.get("/user/username/:userName", (req, res) => { 
-    // console.log("called")
+
     const userName = decodeURIComponent(req.params.userName);
-    // console.log(userName);
-    // Validate if contact_name is provided
+    // Validate if username is provided
     if (!userName) {
         return res.status(400).send({ error: "userName is required" });
     } 
@@ -393,8 +366,8 @@ app.get("/user/username/:userName", (req, res) => {
         try {
             res.status(200).send(result);
         } catch (err) {
-            console.error({ error: "An unexpected error occurred in GET by name"+err });
-            res.status(500).send({ error: "An unexpected error occurred in GET by name"+err });
+            console.error({ error: "An unexpected error occurred in GET by username"+err });
+            res.status(500).send({ error: "An unexpected error occurred in GET by username"+err });
         }
     });
 
@@ -576,8 +549,6 @@ app.get('/findSimilarUsers/:user_id', (req, res) => {
                     // Combine the similarity score with the user details
                     const resultWithUserDetails = results.map((result) => {
                         const userDetail = userDetails.find(user => user.id === result.user_id);
-                        // i want userDetail, it has everything needed for the other user page
-                        console.log(userDetail);
                         return {
                             user_id: result.user_id,
                             score: result.score,
@@ -617,11 +588,9 @@ app.get('/housing', (req, res) => {
 
 
 // get house searching by house name
-app.get("/house/:houseName", (req, res) => { 
-    // console.log("called")
+app.get("/house/:houseName", (req, res) => {
+
     const houseName = decodeURIComponent(req.params.houseName);
-    // console.log(userName);
-    // Validate if contact_name is provided
     if (!houseName) {
         return res.status(400).send({ error: "House name is required" });
     } 
@@ -645,14 +614,13 @@ app.get("/house/:houseName", (req, res) => {
 app.post("/user/housing_preference", upload.none(), (req, res) => {
 
     const {userId, housingId} = req.body;
-    console.log(userId);
 
     // Step 1: Check if the preference already exists
     const checkQuery = "SELECT * FROM houseSelections WHERE user_id = ? AND housing_id = ?";
     db.query(checkQuery, [userId, housingId], (checkErr, checkResult) => {
         if (checkErr) {
             console.error("Database error during validation:", checkErr);
-            return res.status(500).send({ error: "Error checking contact name: " + checkErr.message });
+            return res.status(500).send({ error: "Error checking houseselection : " + checkErr.message });
         }
          if (checkResult.length > 0) {
             // If email exists, send a conflict response
@@ -677,3 +645,51 @@ app.post("/user/housing_preference", upload.none(), (req, res) => {
     
 });
 
+
+
+// endpoint to get all housingpreferences
+app.get("/housingPreferences/:id", (req, res) => {
+
+    const id = req.params.id;
+
+    try {
+    db.query("SELECT * FROM houseSelections WHERE user_id=?", [id], (err, result) => {
+        if (err) {
+        console.error({error:"Error reading all housing preferences:"+err});
+        return res.status(500).send({ error: "Error reading all housing preferences"+err});
+        }
+        res.status(200).send(result);
+    });
+    } catch {
+        console.error({ error: "An unexpected error occurred"+err });
+        res.status(500).send({ error: "An unexpected error occurred"+err });
+    }
+ });
+
+
+// get house searching by id
+app.get("/house/id/:houseId", (req, res) => { 
+    const houseId = decodeURIComponent(req.params.houseId);
+    if (!houseId) {
+        return res.status(400).send({ error: "House name is required" });
+    } 
+
+    const query = "SELECT * FROM housing WHERE id=?";
+    db.query(query, [houseId], (err, result) => {
+        try {
+            res.status(200).send(result);
+        } catch (err) {
+            console.error({ error: "An unexpected error occurred in GET by houseid"+err });
+            res.status(500).send({ error: "An unexpected error occurred in GET by houseid"+err });
+        }
+    });
+
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database!');
+});
