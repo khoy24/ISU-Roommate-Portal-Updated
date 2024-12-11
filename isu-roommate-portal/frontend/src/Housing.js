@@ -134,13 +134,11 @@ const addPreference = async (housing) => {
                             {/* only display if signed in */}
                             {userData[0]?.id &&
                             <button
-                              className="btn btn-primary select-btn"
+                              className="btn btn-danger select-btn my-3"
                               onClick={() => handleAddToSelection(housing)}
                               style={{
                                 borderRadius: "5px",  
                                 padding: "6px 14px",  
-                                backgroundColor: "#007bff",
-                                color: "#fff",
                                 border: "none",
                                 fontSize: "12px", 
                                 cursor: "pointer",
@@ -190,14 +188,13 @@ const addPreference = async (housing) => {
                             </button>
 
                             {/* Button to add housing to selections */}
+                            {userData[0]?.id &&
                             <button
-                              className="btn btn-primary select-btn"
+                              className="btn btn-danger select-btn my-3"
                               onClick={() => handleAddToSelection(housing)}
                               style={{
                                 borderRadius: "5px",  
                                 padding: "6px 14px",  
-                                backgroundColor: "#007bff",
-                                color: "#fff",
                                 border: "none",
                                 fontSize: "12px", 
                                 cursor: "pointer",
@@ -206,6 +203,7 @@ const addPreference = async (housing) => {
                             >
                               Add to Selection
                             </button>
+              }
                           </div>
                           {/* Expandable Description */}
                           <div

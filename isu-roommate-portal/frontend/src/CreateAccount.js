@@ -32,10 +32,8 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
         formData.append("last_name", lastName);
         formData.append("password", password);
         // optional bio
-        if (!bio===""){
-            formData.append("bio", bio);
-        }
-        formData.append("profile_photo", image); // Add the file to the form data
+        formData.append("bio", bio);
+        // formData.append("profile_photo", image); // Add the file to the form data
 
         // Send the FormData object to the backend
         const response = await fetch("http://localhost:8081/user", {
@@ -124,11 +122,11 @@ export default function CreateAccount({userData, setUserData, viewer, setViewer,
                         <label className="form-label">Bio</label>
                         <input type="text" placeholder="Add a Bio" onChange={(e) => setBio(e.target.value)} className="form-control" id="createBio"/>
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label className="form-label">Profile Picture</label>
                         <input type="file" className="form-control" onChange={handleImageChange} />
                         {preview && (<img src={preview} alt="Preview" className="mt-3" style={{position: 'relative', width: 15+'em', height: 15+'em', borderRadius: 50+'%', overflow:'hidden', objectFit: 'cover'}} /> )}
-                    </div>
+                    </div> */}
                         <button className="btn btn-primary w-100 py-2 gy-2 my-2 " type="submit" style={{backgroundColor:'#7C2529'}}>Create Account</button>
                         <p className="my-3">Already have an account?</p>
                         <button className="btn btn-primary w-100 py-2" onClick={() => setViewer(4)} id="loginButton" style={{backgroundColor:'#7C2529'}}>Back to sign in</button>
