@@ -163,7 +163,7 @@ export default function Quiz({userData, setUserData, viewer, setViewer, setOther
                     <form id="QuizBody" className=" w-100 m-auto justify-content-center" onSubmit={handleSubmit}>
                         {!userData[0]?.id &&
                             <div className="justify-content-center text-align-center">
-                                <h1 className="my-5" style={{textAlign:'center'}}>Sign in before taking the quiz</h1>
+                                <h1 className="my-5" style={{textAlign:'center', fontFamily: 'Merriweather serif'}}>Sign in before taking the quiz</h1>
                             </div>
                         }
                         {userData[0]?.id && quizData.length > 0 ? (

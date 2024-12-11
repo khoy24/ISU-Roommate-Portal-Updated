@@ -63,7 +63,7 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
         <div>
             <Navbar userData={userData} setUserData={setUserData} viewer={viewer} setViewer={setViewer}/>
                 <div className="container">
-                    <h2 className="text-center mt-4">Search For a Roommate</h2>
+                    <h1 className="text-center mt-4" style={{textAlign:'center', fontFamily: 'Merriweather serif'}}>Search For a Roommate</h1>
                     <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder="Enter username" value={userName}
                         onChange={(e) => setUserName(e.target.value.toLowerCase())}
