@@ -92,11 +92,10 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
             <div id="col" className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
               {begunSearch===0 && housingData.map((housing) => {
                 const isExpanded = expanded[housing.id] || false;
-
                 return (
                   <div key={housing.id} className="col">
                     <div className="card shadow-sm" style={{ position: "relative" }}>
-                      <img src={housing.URL} className="card-img-top" alt={housing.name} />
+                      <img src={`http://localhost:8081${housing.URL}`} className="card-img-top" alt={housing.name} />
                       <div className="card-body">
                         <p className="card-text">
                           <strong>{housing.name}</strong>, ${housing.price} <br />
@@ -152,7 +151,7 @@ export default function Housing({ userData, setUserData, viewer, setViewer }) {
                 return (
                   <div key={housing.id} className="col">
                     <div className="card shadow-sm" style={{ position: "relative" }}>
-                      <img src={housing.URL} className="card-img-top" alt={housing.name} />
+                      <img src={`http://localhost:8081${housing.URL}`} className="card-img-top" alt={housing.name} />
                       <div className="card-body">
                         <p className="card-text">
                           <strong>{housing.name}</strong>, ${housing.price} <br />

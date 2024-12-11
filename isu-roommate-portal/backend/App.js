@@ -17,7 +17,8 @@ const host = "localhost";
 app.use(express.json());
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads")); // Serve images statically
-
+app.use("/images", express.static("images")); // Serve images statically
+app.use('/images', express.static(path.join(__dirname, 'myotherimages')));
 // Start server
 app.listen(port, () => {
     console.log(`Server running at http://${host}:${port}`);
@@ -165,6 +166,7 @@ const fs = require("fs");
 if (!fs.existsSync("uploads")) {
     fs.mkdirSync("uploads");
 }
+
 
 // create new user
 app.post("/user", upload.single("image"), (req, res) => {

@@ -179,7 +179,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                         {!userData[0].profile_photo && (
                             <div>
                                 <img className="img-fluid"
-                                src={"./images/noPhoto.jpg"}
+                                src={`http://localhost:8081/images/noPhoto.jpg`}
                                 alt={userData[0].user + '\'s profile photo'}
                                 id="galleryphoto1"
                                 style={{position: 'relative', width: 15+'em', height: 15+'em', borderRadius: 50+'%', overflow:'hidden', objectFit: 'cover'}}
@@ -233,7 +233,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                     )}
                                     {!userData[0].gallery1 && ( <div>
                                         <img className="img-fluid"
-                                        src={"./images/noPhoto.jpg"}
+                                        src={`http://localhost:8081/images/noPhoto.jpg`}
                                         alt={userData[0].user + '\'s gallery photo'}
                                         id="galleryphoto1"
                                         style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}
@@ -272,7 +272,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                     {!userData[0].gallery2 && (
                                         <div>
                                             <img className="img-fluid"
-                                            src={"./images/noPhoto.jpg"}
+                                            src={`http://localhost:8081/images/noPhoto.jpg`}
                                             alt={userData[0].user + '\'s gallery photo'}
                                             id="galleryphoto2"
                                             style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}
@@ -311,7 +311,7 @@ export default function Profile({userData, setUserData, viewer, setViewer, setEm
                                     {!userData[0].gallery3 && (
                                         <div>
                                             <img className="img-fluid"
-                                            src={"./images/noPhoto.jpg"}
+                                            src={`http://localhost:8081/images/noPhoto.jpg`}
                                             alt={userData[0].user + '\'s gallery photo'}
                                             id="galleryphoto3"
                                             style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}

@@ -6,7 +6,7 @@ function Footer() {
         <div>
             <footer class="text-body-secondary py-5">
                 <div class="container">
-                    <img src="./myotherimages/isulogo-nobg.png" alt="Iowa State University Logo" style={{height: 16+'px', marginLeft: 3+'em'}}></img>
+                    <img  src={`http://localhost:8081/images/isulogo-nobg.png`} alt="Iowa State University Logo" style={{height: 16+'px', marginLeft: 3+'em'}}></img>
                     <ul style={{overflow: 'hidden', listStyleType: 'none', alignItems: 'center', marginBottom:0+'px', paddingBottom: 0+'px'}}>
                         <li style={{float: 'left', padding: 16+'px', paddingBottom: 0+'px'}}><p>Ames, IA 50011-2103</p></li>
                     </ul>

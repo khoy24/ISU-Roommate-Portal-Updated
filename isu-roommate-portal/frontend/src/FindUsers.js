@@ -89,6 +89,12 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
                             style={{ width: "50px", height: "50px", marginRight: "15px", objectFit: "cover" }}
                             />
                             )}
+                            {!user.profile_photo && (
+                            <img src={`http://localhost:8081/images/noPhoto.jpg`}
+                            alt={user.user}
+                            style={{ width: "50px", height: "50px", marginRight: "15px", objectFit: "cover" }}
+                            />
+                            )}
                             <div className="flex-grow-1">
                                 <strong>{user.user}</strong>
                                 <p>{user.first_name} {user.last_name}</p>
@@ -105,6 +111,12 @@ export default function FindUsers({userData, setUserData, viewer, setViewer, oth
                         <div className="d-flex align-items-center w-100">
                             {user.profile_photo && (
                             <img src={`http://localhost:8081${user.profile_photo}`}
+                            alt={user.user}
+                            style={{ width: "50px", height: "50px", marginRight: "15px", objectFit: "cover" }}
+                            />
+                            )}
+                            {!user.profile_photo && (
+                            <img src={`http://localhost:8081/images/noPhoto.jpg`}
                             alt={user.user}
                             style={{ width: "50px", height: "50px", marginRight: "15px", objectFit: "cover" }}
                             />

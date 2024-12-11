@@ -24,7 +24,7 @@ export default function OtherProfile({userData, setUserData, viewer, setViewer, 
                         {!otherUserData.profile_photo && (
                             <div>
                                 <img className="img-fluid"
-                                src={"./images/noPhoto.jpg"}
+                                src={`http://localhost:8081/images/noPhoto.jpg`}
                                 alt={otherUserData.user + '\'s profile photo'}
                                 id="galleryphoto1"
                                 style={{position: 'relative', width: 15+'em', height: 15+'em', borderRadius: 50+'%', overflow:'hidden', objectFit: 'cover'}}
@@ -62,7 +62,7 @@ export default function OtherProfile({userData, setUserData, viewer, setViewer, 
                                     )}
                                     {!otherUserData.gallery1 && ( <div>
                                         <img className="img-fluid"
-                                        src={"./images/noPhoto.jpg"}
+                                        src={`http://localhost:8081/images/noPhoto.jpg`}
                                         alt={otherUserData.user + '\'s gallery photo'}
                                         id="galleryphoto1"
                                         style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}
@@ -89,7 +89,7 @@ export default function OtherProfile({userData, setUserData, viewer, setViewer, 
                                     {!otherUserData.gallery2 && (
                                         <div>
                                             <img className="img-fluid"
-                                            src={"./images/noPhoto.jpg"}
+                                            src={`http://localhost:8081/images/noPhoto.jpg`}
                                             alt={otherUserData.user + '\'s gallery photo'}
                                             id="galleryphoto2"
                                             style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}
@@ -116,7 +116,7 @@ export default function OtherProfile({userData, setUserData, viewer, setViewer, 
                                     {!otherUserData.gallery3 && (
                                         <div>
                                             <img className="img-fluid"
-                                            src={"./images/noPhoto.jpg"}
+                                            src={`http://localhost:8081/images/noPhoto.jpg`}
                                             alt={otherUserData.user + '\'s gallery photo'}
                                             id="galleryphoto3"
                                             style={{ margin:0, position: 'relative', width: 200+'px', height: 200+'px', overflow:'hidden', objectFit: 'cover'}}
